@@ -69,9 +69,3 @@ Special thanks to:
 2. Iknayan, K. J., & Beissinger, S. R. (2020). *In transition: Avian biogeographic responses to a century of climate change across desert biomes*. *Global Change Biology*, 26(6), 3268–3284. [DOI](https://doi.org/10.1111/gcb.15030)  
 
 ---
-
-### **Formatting Enhancements** ✨
-- Used **bold** and *italics* for emphasis.
-- Added bullet points for clarity in objectives and methods.
-- Improved section structure with consistent headings and spacing.
-- Hyperlinked references for easier access.
