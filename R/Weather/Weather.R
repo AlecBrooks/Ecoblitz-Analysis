@@ -70,10 +70,11 @@ lines(w_2024$CYCLE_DATE, w_2024$SNOW_WC, col = colors[4], lwd = 2)
 legend("topleft", legend = c("2021", "2022", "2023", "2024"), 
        col = colors, lwd = 2, bty = "n")
 
-#Time Series Overlay of Winter Snow
+#Time Series Overlay of Temperature
 plot(w_weekly_2021$CYCLE_WEEK, w_weekly_2021$TEMP_AV, type = "l", 
-     xlab = "Date (Aligned)", ylab = "Snow Water Content (TEMP_AV)", 
-     main = "Winter Snow Water Content 2021 - 2024", col = colors[1], lwd = 2,
+     xlab = "Week", ylab = "Temperature Average (TEMP_AV)", 
+     main = "Average Weekly Temperature 2021 - 2024", 
+     col = colors[1], lwd = 2,
      ylim = c(min(w_weekly_2023$TEMP_AV), max(w_weekly_2022$TEMP_AV)))
 lines(w_weekly_2022$CYCLE_WEEK, w_weekly_2022$TEMP_AV, col = colors[2], lwd = 2)
 lines(w_weekly_2023$CYCLE_WEEK, w_weekly_2023$TEMP_AV, col = colors[3], lwd = 2)
@@ -81,21 +82,21 @@ lines(w_weekly_2024$CYCLE_WEEK, w_weekly_2024$TEMP_AV, col = colors[4], lwd = 2)
 legend("topleft", legend = c("2021", "2022", "2023", "2024"), 
        col = colors, lwd = 2, bty = "n")
 
-
 # Temperature to Snow Water Content (scaled)
 for (year in 2021:2024) {
 plot(get(paste0("w_weekly_", year))$CYCLE_WEEK, 
      scale(get(paste0("w_weekly_", year))$TEMP_AV), type = "l", 
      col = colors[1], lwd = 2, 
      xlab = "Week", ylab = "Scaled Values", 
-     main = paste0("Average Weekly TEMP_AV and SNOW_WC", year))
+     main = paste0("Average Weekly TEMP_AV and SNOW_WC:", year))
 lines(get(paste0("w_weekly_", year))$CYCLE_WEEK, 
       scale(get(paste0("w_weekly_", year))$SNOW_WC), col = colors[4],  
       lty = 2, lwd = 2)
 legend("topleft", legend = c("TEMP_AV", "SNOW_WC"), 
-       col = c(colors[1], colors[4]), lty = c(1, 2), lwd = 2, bty = "n")
-  rm(year)
+       col = c(colors[1], colors[4]), lty = c(1, 2), lwd = 2, bty = "n", 
+       cex = 0.8)
 }
+rm(year)
 
 aggregated_data <- aggregate(SNOW_WC ~ MONTH + YEAR, data = w, 
                              FUN = mean, na.rm = TRUE)
@@ -107,7 +108,7 @@ data_matrix <- t(reshaped_data)
 barplot(as.matrix(data_matrix), beside = TRUE, col = 
           colors, 
         legend.text = c("2021", "2022", "2023", "2024"), 
-        args.legend = list(title = "Cycle", x = "topleft"),
+        args.legend = list(title = "", x = "topleft"),
         main = "Grouped Bar Chart of SNOW_WC by Month and Cycle", 
         xlab = "Month", ylab = "Snow Water Content (SNOW_WC)", 
         names.arg = colnames(data_matrix))
@@ -139,3 +140,24 @@ lines(f_weekly_2024$CYCLE_WEEK, f_weekly_2024$TEMP_AV, col = colors[4], lwd = 2)
 legend("bottomleft", legend = c("2021", "2022", "2023", "2024"), 
        col = colors, lwd = 2, bty = "n")
 
+################################# STATS #########################################
+
+corTable <- data.frame(
+  Year = 2021:2024,
+  Fall = numeric(length(2021:2024)),
+  Winter = numeric(length(2021:2024)),
+  Spring = numeric(length(2021:2024)) 
+)
+
+for (year in 2021:2024) {
+  
+  corTable[corTable$Year == year, "Fall"] <-  cor(get(paste0("f_", year))$TEMP_AV, get(paste0("f_", year))$SNOW_WC)
+  corTable[corTable$Year == year, "Winter"] <- cor(get(paste0("w_", year))$TEMP_AV, get(paste0("w_", year))$SNOW_WC)
+  corTable[corTable$Year == year, "Spring"] <- cor(get(paste0("s_", year))$TEMP_AV, get(paste0("s_", year))$SNOW_WC)
+    
+}
+
+knitr::kable(corTable, caption = "Correlation Matrix SNOW_WC ~ TEMP_AV")
+knitr::kable(TukeyHSD(aov(TEMP_AV ~ factor(YEAR), data = f))[["factor(YEAR)"]], caption = "TukeyHSD Fall (TEMP_AV ~ factor(YEAR))")
+knitr::kable(TukeyHSD(aov(TEMP_AV ~ factor(YEAR), data = w))[["factor(YEAR)"]], caption = "TukeyHSD Winter (TEMP_AV ~ factor(YEAR))")
+knitr::kable(TukeyHSD(aov(TEMP_AV ~ factor(YEAR), data = s))[["factor(YEAR)"]], caption = "TukeyHSD Spring (TEMP_AV ~ factor(YEAR))")
