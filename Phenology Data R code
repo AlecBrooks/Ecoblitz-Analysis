@@ -1,0 +1,50 @@
+library(readr)
+Natural_Plants <- read_csv("C:/Users/Seth/Downloads/Natural Plants - Sheet1.csv")
+View(Natural_Plants_Sheet1)
+Invasive_Plants <- read_csv("C:/Users/Seth/Downloads/Invasive Plants - Sheet1.csv")
+View(Invasive_Plants_Sheet1)
+summary(Invasive_Plants)
+#Here I had to rename the columns since it was just some weird ...5 for example number.
+Invasive_Plants <- setNames(Invasive_Plants, c('Dates','Transect','Family','Common Name','Species','Only Buds','Early',
+                                               'Peak','Late','Only Fruits'))
+#Then here I had to remove the first row of the data because for whatever reason it was keeping the label from the sheet
+#with in the rows of data.
+Invasive_Plants <- tail(Invasive_Plants,-1)
+Invasive_Plants$Early <- as.numeric(Invasive_Plants$Early)
+boxplot(Early~Family,data = Invasive_Plants)
+#Here is some of the anaova data belowfor the ealry and late stage plants by there family:
+anaova_invasive_plants_early <- aov(Early~ factor(Family),data = Invasive_Plants)
+summary(anaova_invasive_plants_early)# P-value is 0.277
+
+anaova_invasive_plants_late <- aov(Late~ factor(Family),data = Invasive_Plants)
+summary(anaova_invasive_plants_late)#P-Value is 0.363
+
+#Here will be the Tukey tests and there results
+tukey_result_invasive_early <- TukeyHSD(anaova_invasive_plants_early)
+print(tukey_result_invasive_early)
+
+tukey_result_invasive_late <- TukeyHSD(anaova_invasive_plants_late)
+print(tukey_result_invasive_late)
+
+
+#Now to quickly clean up the Natural Plants data set as well:
+Natural_Plants <- setNames(Natural_Plants, c('Dates','Transect','Family','Common Name','Species','Only Buds','Early',
+                                               'Peak','Late','Only Fruits'))
+
+Natural_Plants <- tail(Natural_Plants,-1)
+Natural_Plants$Early <- as.numeric(Natural_Plants$Early)
+boxplot(Early~Family,data = Natural_Plants)
+#This is also the anova for the natural plants by there family in the two blooming stages.
+anaova_natural_plants_early <- aov(Early~ factor(Family),data = Natural_Plants)
+summary(anaova_natural_plants_early)#Gives the P-Value 0.285
+
+anaova_natural_plants_late <- aov(Late~ factor(Family),data = Natural_Plants)
+summary(anaova_natural_plants_late)# Late gave a p-value of 0.0208
+
+#Now for the Tukey tests for the natural plants be for warned the print statements will output a lot!
+
+tukey_result_natural_early <- TukeyHSD(anaova_natural_plants_early)
+print(tukey_result_natural_early)
+
+tukey_result_natural_late <- TukeyHSD(anaova_natural_plants_late)
+print(tukey_result_natural_late)
