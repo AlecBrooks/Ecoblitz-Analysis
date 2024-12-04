@@ -6,10 +6,13 @@
 ################################################################################
 library(readr)
 library(tidyr)
+library(here)
 
-w <- read_csv("Winter_Data_11-28-2024.csv")
-s <- read_csv("Spring_Data_11-28-2024.csv")
-f <- read_csv("Fall_Data_11-28-2024.csv")
+ProjectPath <- here()
+
+w <- read_csv(paste0(ProjectPath, "/Data/Winter_Data_11-28-2024.csv"))
+s <- read_csv(paste0(ProjectPath, "/Data/Spring_Data_11-28-2024.csv"))
+f <- read_csv(paste0(ProjectPath, "/Data/Fall_Data_11-28-2024.csv"))
 
 w$DATE <- as.Date(w$DATE, format = "%m/%d/%Y")
 s$DATE <- as.Date(s$DATE, format = "%m/%d/%Y")
