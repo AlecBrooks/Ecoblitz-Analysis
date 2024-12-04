@@ -1,21 +1,18 @@
-// Dynamically populate table with hyperlinks to all .html files in the same folder
 document.addEventListener("DOMContentLoaded", () => {
-    fetch(".")
-        .then(response => response.text())
-        .then(data => {
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(data, "text/html");
-            const links = doc.querySelectorAll("a[href$='.html']");
-            
+    fetch("files.json")
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(files => {
             const tableBody = document.querySelector("#files-table tbody");
-            links.forEach(link => {
-                if (link.href.endsWith("index.html")) return; // Skip the index.html file
-
-                const fileName = link.getAttribute("href");
+            files.forEach(fileName => {
                 const row = document.createElement("tr");
                 const cell = document.createElement("td");
                 const anchor = document.createElement("a");
-                
+
                 anchor.href = fileName;
                 anchor.textContent = fileName;
 
@@ -24,5 +21,5 @@ document.addEventListener("DOMContentLoaded", () => {
                 tableBody.appendChild(row);
             });
         })
-        .catch(error => console.error("Error fetching files:", error));
+        .catch(error => console.error("Error fetching file list:", error));
 });
