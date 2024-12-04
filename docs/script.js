@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-    fetch("files.json")
+    fetch("./files.json")
         .then(response => {
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
             return response.json();
         })
         .then(files => {
+            console.log("Fetched files:", files); // Log fetched files
             const tableBody = document.querySelector("#files-table tbody");
             files.forEach(fileName => {
                 const row = document.createElement("tr");
