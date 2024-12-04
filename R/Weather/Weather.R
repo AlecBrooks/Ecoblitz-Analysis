@@ -8,11 +8,11 @@ library(readr)
 library(tidyr)
 library(here)
 
-ProjectPath <- here()
+w <- read_csv(here("Ecoblitz-Analysis", "Data", "Winter_Data_11-28-2024.csv"))
+s <- read_csv(here("Ecoblitz-Analysis", "Data", "Spring_Data_11-28-2024.csv"))
+f <- read_csv(here("Ecoblitz-Analysis", "Data", "Fall_Data_11-28-2024.csv"))
 
-w <- read_csv(paste0(ProjectPath, "/Data/Winter_Data_11-28-2024.csv"))
-s <- read_csv(paste0(ProjectPath, "/Data/Spring_Data_11-28-2024.csv"))
-f <- read_csv(paste0(ProjectPath, "/Data/Fall_Data_11-28-2024.csv"))
+setwd(here("Ecoblitz-Analysis","R","Weather"))
 
 w$DATE <- as.Date(w$DATE, format = "%m/%d/%Y")
 s$DATE <- as.Date(s$DATE, format = "%m/%d/%Y")

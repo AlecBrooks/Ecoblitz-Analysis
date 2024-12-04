@@ -10,12 +10,25 @@ output: html_document
 ```{r setup1, echo=FALSE, eval=TRUE, results='hide', message=FALSE, warning=FALSE}
 ### Setup ###
 ################################################################################
+packages <- c("readr", "tidyr", "here")
+install_if_missing <- function(pkgs) {
+  for (pkg in pkgs) {
+    if (!requireNamespace(pkg, quietly = TRUE)) {
+      install.packages(pkg)
+    }
+  }
+}
+
+install_if_missing(packages)
+rm(packages)
+
 library(readr)
 library(tidyr)
+library(here)
 
-w <- read_csv("Winter_Data_11-28-2024.csv")
-s <- read_csv("Spring_Data_11-28-2024.csv")
-f <- read_csv("Fall_Data_11-28-2024.csv")
+w <- read_csv(here("Data", "Winter_Data_11-28-2024.csv"))
+s <- read_csv(here("Data", "Spring_Data_11-28-2024.csv"))
+f <- read_csv(here("Data", "Fall_Data_11-28-2024.csv"))
 
 w$DATE <- as.Date(w$DATE, format = "%m/%d/%Y")
 s$DATE <- as.Date(s$DATE, format = "%m/%d/%Y")
