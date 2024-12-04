@@ -8,6 +8,8 @@ library(readr)
 library(tidyr)
 library(here)
 
+---
+
 w <- read_csv(here("Ecoblitz-Analysis", "Data", "Winter_Data_11-28-2024.csv"))
 s <- read_csv(here("Ecoblitz-Analysis", "Data", "Spring_Data_11-28-2024.csv"))
 f <- read_csv(here("Ecoblitz-Analysis", "Data", "Fall_Data_11-28-2024.csv"))
