@@ -7,8 +7,6 @@ output: html_document
 
 ---
 
-# This is a test
-
 ```{r setup1, echo=FALSE, eval=TRUE, results='hide', message=FALSE, warning=FALSE}
 ### Setup ###
 ################################################################################
