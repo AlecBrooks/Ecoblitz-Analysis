@@ -5,7 +5,7 @@ library(scales)
 library(tidyr)
 
 # Load the data
-df <- read.csv("Summary.csv")
+df <- read.csv("Summary_No_Spring.csv")
 
 # Convert Season into a factor to maintain order
 season_order <- c("Winter", "Spring", "Summer", "Fall")
