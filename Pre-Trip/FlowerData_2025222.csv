@@ -1,0 +1,184 @@
+YEAR,SEASON,TRANSECT,FAMILY,COMMON_NAME,SPECIES,TYPE,ONLY_BUDS,EARLY,PEAK,LATE,ONLY_FRUITS
+2021,Spring,Forest/Grassland,Lamiaceae,White horehound,Marrubium vulgare ,Invasive,1,0,0,0,0
+2021,Spring,Forest/Grassland,Poaceae,Wall barley,Hordeum murinum ,Invasive,0,1,1,0,0
+2021,Spring,Forest/Grassland,Geraniaceae,Red stem storksbill,Erodium cicutarium,Invasive,1,1,1,1,1
+2021,Spring,Forest/Grassland,Poaceae,Cheatgrass,Bromus tectorum,Invasive,1,1,1,1,1
+2021,Fall,Forest/Grassland,Poaceae,Cheatgrass,Bromus tectorum,Invasive,0,0,0,1,1
+2021,Spring,Riparian/Wetland,Brassicaceae,Broadleaf pepperweed,Lepidium latifolium,Invasive,0,0,1,0,0
+2021,Spring,Riparian/Wetland,Fabaceae,Bird's-foot trefoil,Lotus corniculatus,Invasive,1,1,1,0,0
+2021,Spring,Riparian/Wetland,Geraniaceae,Red stem storksbill,Erodium cicutarium,Invasive,0,1,1,1,0
+2021,Spring,Riparian/Wetland,Poaceae,Cheatgrass,Bromus tectorum,Invasive,0,0,1,0,0
+2021,Spring,Riparian/Wetland,Scrophulariaceae,Common mullein,Verbascum thapsus ,Invasive,0,0,0,1,0
+2021,Fall,Riparian/Wetland,Asteraceae,Common mugworth,Artemisia vulgaris,Invasive,0,0,0,1,0
+2021,Fall,Riparian/Wetland,Asteraceae,white horehound,Marrubium vulgare,Invasive,0,0,0,1,0
+2021,Fall,Riparian/Wetland,Brassicaceae,Broadleaf pepperweed,Lepidium latifolium,Invasive,0,0,0,1,0
+2021,Fall,Riparian/Wetland,Vitaceae,Virginia creeper,Parthenocissus quinquefolia,Invasive,0,0,0,0,1
+2021,Fall,Riparian/Wetland,Asteraceae,Indian blanket flower,Gaillardia pulchella,Invasive,0,0,1,0,0
+2021,Spring,SageBrush,Poaceae,Cheatgrass,Bromus tectorum ,Invasive,1,1,1,0,0
+2022,Spring,Forest/Grassland,Brassicaceae,Clasping pepperweed,Lepidium perfoliatum,Invasive,0,0,1,1,1
+2022,Spring,Forest/Grassland,Fabaceae,Astragalus sp.,Astragalus sp.,Invasive,0,1,0,0,0
+2022,Spring,Forest/Grassland,Brassicaceae,Flixweed,Descurainia sophia,Invasive,0,1,1,1,1
+2022,Spring,Forest/Grassland,Brassicaceae,Western tansymustard,Descurainia pinnata,Invasive,0,1,1,1,1
+2022,Spring,Forest/Grassland,Poaceae,Wall barley,Hordeum murinum ,Invasive,0,0,0,1,1
+2022,Spring,Forest/Grassland,Geraniaceae,Red stem storksbill,Erodium cicutarium,Invasive,1,1,1,1,1
+2022,Spring,Forest/Grassland,Poaceae,Cheatgrass,Bromus tectorum,Invasive,1,1,1,1,1
+2022,Fall,Forest/Grassland,Poaceae,Cheatgrass,Bromus tectorum,Invasive,0,0,1,1,0
+2022,Spring,Riparian/Wetland,Brassicaceae,Broadleaf pepperweed,Lepidium latifolium,Invasive,0,0,1,0,0
+2022,Spring,Riparian/Wetland,Geraniaceae,Red stem storksbill,Erodium cicutarium,Invasive,0,1,1,1,1
+2022,Spring,Riparian/Wetland,Asteraceae,Common dandelion,Taraxacum officinale,Invasive,0,0,1,0,1
+2022,Spring,Riparian/Wetland,Brassicaceae,Western tansymustard,Descurainia pinnata,Invasive,0,1,1,1,0
+2022,Spring,Riparian/Wetland,Poaceae,Cheatgrass,Bromus tectorum,Invasive,0,1,1,1,0
+2022,Fall,Riparian/Wetland,Brassicaceae,Broadleaf pepperweed,Lepidium latifolium,Invasive,0,0,0,1,0
+2022,Fall,Riparian/Wetland,Lamiaceae,White horehound,Marrubium vulgare,Invasive,0,0,0,1,0
+2022,Fall,Riparian/Wetland,Polygonaceae,Curly dock,Rumex crispus,Invasive,0,0,0,1,0
+2022,Fall,Riparian/Wetland,Vitaceae,Virginia creeper,Parthenocissus quinquefolia,Invasive,0,0,0,1,0
+2022,Spring,SageBrush,Brassicaceae,Crossflower,Chorispora tenella,Invasive,0,1,1,1,0
+2022,Spring,SageBrush,Geraniaceae,Red stem storksbill,Erodium cicutarium,Invasive,0,1,1,1,1
+2022,Spring,SageBrush,Brassicaceae,Desert madwort,Alyssum desertorum,Invasive,0,0,0,0,1
+2022,Spring,SageBrush,Plantaginaceae,Penstemon,Penstemon sp.,Invasive,1,0,0,0,0
+2022,Spring,SageBrush,Brassicaceae,Clasping pepperweed,Lepidium perfoliatum,Invasive,0,1,1,1,0
+2022,Spring,SageBrush,Poaceae,Cheatgrass,Bromus tectorum ,Invasive,1,1,1,1,1
+2023,Spring,Forest/Grassland,Brassicaceae,Clasping pepperweed,Lepidium perfoliatum,Invasive,0,0,1,1,0
+2023,Spring,Forest/Grassland,Brassicaceae,Flixweed,Descurainia sophia,Invasive,0,1,1,1,1
+2023,Spring,Forest/Grassland,Brassicaceae,Western tansymustard,Descurainia pinnata,Invasive,0,0,1,1,1
+2023,Spring,Forest/Grassland,Poaceae,Wall barley,Hordeum murinum ,Invasive,0,1,1,1,0
+2023,Spring,Forest/Grassland,Ranunculaceae,Curveseed butterwort,Ceratocephala testiculata,Invasive,0,0,0,1,1
+2023,Spring,Forest/Grassland,Geraniaceae,Red stem storksbill,Erodium cicutarium,Invasive,0,0,1,1,1
+2023,Spring,Forest/Grassland,Poaceae,Cheatgrass,Bromus tectorum,Invasive,0,0,1,1,1
+2023,Fall,Forest/Grassland,Amaranthaceae,Prostrate pigweed,Amaranthus albus,Invasive,0,0,0,1,1
+2023,Fall,Forest/Grassland,Amaranthaceae,Tumbleweed,Salsola tragus,Invasive,0,1,1,1,0
+2023,Fall,Forest/Grassland,Asteraceae,Prickly lettuce,Lactuca serriola,Invasive,0,0,0,1,1
+2023,Spring,Riparian/Wetland,Geraniaceae,Red stem storksbill,Erodium cicutarium,Invasive,0,0,0,1,0
+2023,Spring,Riparian/Wetland,Brassicaceae,Western tansymustard,Descurainia pinnata,Invasive,0,1,1,0,0
+2023,Spring,Riparian/Wetland,Poaceae,Cheatgrass,Bromus tectorum,Invasive,0,0,1,1,1
+2023,Fall,Riparian/Wetland,Fabaceae,White sweetclover,Melilotus albus,Invasive,0,0,0,1,0
+2023,Fall,Riparian/Wetland,Brassicaceae,Broadleaf pepperweed,Lepidium latifolium,Invasive,0,0,0,1,0
+2023,Fall,Riparian/Wetland,Asteraceae,Prickly lettuce,Lactuca serriola,Invasive,0,0,0,1,0
+2023,Spring,SageBrush,Brassicaceae,Desert madwort,Alyssum desertorum,Invasive,0,0,1,1,0
+2023,Spring,SageBrush,Asteraceae,Littleleaf horsebrush,Tetradymia glabrata,Invasive,1,0,0,0,0
+2023,Spring,SageBrush,Poaceae,Cheatgrass,Bromus tectorum ,Invasive,0,0,0,1,1
+2023,Spring,SageBrush,Geraniaceae,Red stem storksbill,Erodium cicutarium,Invasive,0,0,0,1,1
+2023,Spring,SageBrush,Brassicaceae,Clasping pepperweed,Lepidium perfoliatum,Invasive,0,0,0,1,0
+2023,Spring,SageBrush,Brassicaceae,Western tansymustard,Descurainia pinnata,Invasive,0,1,0,0,0
+2021,Spring,Forest/Grassland,Asteraceae,Rough eyelashweed,Blepharipappus scaber ,Natural,0,0,0,0,0
+2021,Spring,Forest/Grassland,Ephedraceae,Green ephedra,Ephedra viridis ,Natural,0,0,1,0,0
+2021,Spring,Forest/Grassland,Polygonaceae,buckwheat,Eriogonum sp.,Natural,0,1,1,0,0
+2021,Spring,Forest/Grassland,Boraginaceae,Fiddleneck,Amsinckia tessellata ,Natural,1,1,1,1,1
+2021,Spring,Forest/Grassland,Rosaceae,Utah serviceberry,Amelanchier utahensis,Natural,0,0,1,1,1
+2021,Fall,Forest/Grassland,Asteraceae,Yellow rabbitbrush,Chrysothamnus viscidiflorus,Natural,1,1,0,0,0
+2021,Fall,Forest/Grassland,Asteraceae,Rubber rabbitbrush,Ericameria nauseosa,Natural,1,1,1,1,0
+2021,Fall,Forest/Grassland,Asteraceae,Big sagebrush,Artemisia tridentata,Natural,0,1,1,0,0
+2021,Fall,Forest/Grassland,Asteraceae,Broom snakeweed,Gutierrezia sarothrae,Natural,0,0,1,1,0
+2021,Spring,Riparian/Wetland,Asteraceae,Cobweb thistle,Cirsium occidentale ,Natural,0,0,0,1,0
+2021,Spring,Riparian/Wetland,Poaceae,Bluegrass,Poa sp.,Natural,0,1,0,0,0
+2021,Spring,Riparian/Wetland,Salicaceae,Willow,Salix sp.,Natural,0,1,1,0,0
+2021,Fall,Riparian/Wetland,Apocynaceae,narrowleaf milkweed,Asclepias fascicularis,Natural,0,0,0,1,0
+2021,Fall,Riparian/Wetland,Asteraceae,Big sagebrush,Artemisia tridentata,Natural,0,1,1,1,0
+2021,Fall,Riparian/Wetland,Asteraceae,Yellow rabbitbrush,Chrysothamnus viscidiflorus,Natural,0,0,0,1,0
+2021,Fall,Riparian/Wetland,Asteraceae,Rubber rabbitbrush,Ericameria nauseosa,Natural,0,1,1,1,0
+2021,Fall,Riparian/Wetland,Asteraceae,Goldenrod,Solidago sp.,Natural,0,0,0,1,1
+2021,Fall,Riparian/Wetland,Rosaceae,Wood's rose,Rosa woodsii,Natural,0,0,0,1,1
+2021,Fall,Riparian/Wetland,Typhaceae,Broad-leaved cattail,Typha latifolia,Natural,0,0,0,1,0
+2021,Spring,SageBrush,Asteraceae,White tidy tips,Layia glandulosa ,Natural,0,0,0,1,0
+2021,Spring,SageBrush,Ephedraceae,Green ephedra,Ephedra viridis ,Natural,0,1,0,0,0
+2021,Spring,SageBrush,Loasaceae,Whitestem blazingstar,Mentzelia albicaulis,Natural,0,1,0,0,0
+2021,Spring,SageBrush,Rosaceae,Antelope bitterbrush,Purshia tridentata ,Natural,0,1,0,0,0
+2021,Spring,SageBrush,Amaranthaceae,Spiny hopsage,Grayia spinosa,Natural,0,1,0,0,0
+2021,Spring,SageBrush,Asteraceae,Rough eyelashweed,Blepharipappus scaber ,Natural,0,1,1,0,0
+2021,Spring,SageBrush,Boraginaceae,Fiddleneck,Amsinckia tessellata ,Natural,0,1,0,0,0
+2021,Spring,SageBrush,Ephedraceae,Nevada ephedra,Ephedra nevadensis ,Natural,0,1,0,0,0
+2021,Spring,SageBrush,Orobanchaceae,Desert paintbrush,Castilleja chromosa,Natural,0,0,1,0,0
+2021,Spring,SageBrush,Rosaceae,Desert peach,Prunus andersonii,Natural,0,1,0,0,0
+2021,Fall,SageBrush,Asteraceae,Yellow rabbitbrush,Chrysothamnus viscidiflorus,Natural,0,1,1,1,0
+2021,Fall,SageBrush,Asteraceae,Big sagebrush,Artemisia tridentata,Natural,0,1,1,1,0
+2021,Fall,SageBrush,Asteraceae,Rubber rabbitbrush,Ericameria nauseosa,Natural,0,1,1,0,0
+2021,Fall,SageBrush,Asteraceae,Broom snakeweed,Gutierrezia sarothrae,Natural,0,1,1,1,0
+2022,Spring,Forest/Grassland,Asteraceae,Western hawksbeard,Crepis occidentalis,Natural,1,1,1,0,0
+2022,Spring,Forest/Grassland,Boraginaceae,Longleaf phlox,Phlox longifolia,Natural,0,1,1,1,0
+2022,Spring,Forest/Grassland,Valerianaceae,Longhorn sealblush,Plectritis macrocerca,Natural,0,0,1,0,0
+2022,Spring,Forest/Grassland,Primulaceae,Plains evening primrose,Camissonia contorta,Natural,0,1,1,0,0
+2022,Spring,Forest/Grassland,Rosaceae,Desert peach,Prunus andersonii,Natural,0,0,0,1,1
+2022,Spring,Forest/Grassland,Boraginaceae,Moth combseed,Pectocarya setosa,Natural,0,0,1,1,0
+2022,Spring,Forest/Grassland,Poaceae,Bluebunch wheatgrass,Pseudoroegneria spicata,Natural,1,0,0,0,0
+2022,Spring,Forest/Grassland,Polygonaceae,Blue monutain buckwheat,Eriogonum strictum,Natural,1,1,1,0,0
+2022,Spring,Forest/Grassland,Boraginaceae,Fiddleneck,Amsinckia tessellata ,Natural,1,1,1,1,1
+2022,Spring,Forest/Grassland,Rosaceae,Utah serviceberry,Amelanchier utahensis,Natural,0,0,0,0,1
+2022,Fall,Forest/Grassland,Asteraceae,Big sagebrush,Artemisia tridentata,Natural,1,1,1,0,0
+2022,Fall,Forest/Grassland,Asteraceae,Rubber rabbitbrush,Ericameria nauseosa,Natural,1,0,0,0,0
+2022,Fall,Forest/Grassland,Asteraceae,Broom snakeweed,Gutierrezia sarothrae,Natural,0,1,1,1,0
+2022,Fall,Forest/Grassland,Asteraceae,Littleleaf horsebrush,Tetradymia glabrata,Natural,0,1,1,1,0
+2022,Spring,Riparian/Wetland,Grossulariaceae,Golden currant,Ribes aureum,Natural,1,1,1,0,0
+2022,Spring,Riparian/Wetland,Caprilfoliaceae,Honeysuckle,Lonicera sp.,Natural,0,1,1,0,0
+2022,Spring,Riparian/Wetland,Poaceae,Bluegrass,Poa sp.,Natural,0,1,0,0,0
+2022,Spring,Riparian/Wetland,Salicaceae,Willow,Salix sp.,Natural,0,1,1,0,0
+2022,Fall,Riparian/Wetland,Apocynaceae,Narrowleaf milkweed,Asclepias fascicularis,Natural,0,0,0,1,1
+2022,Fall,Riparian/Wetland,Asteraceae,Rubber rabbitbrush,Ericameria nauseosa,Natural,0,0,0,1,0
+2022,Fall,Riparian/Wetland,Asteraceae,Goldenrod,Solidago sp.,Natural,0,0,0,0,1
+2022,Fall,Riparian/Wetland,Rosaceae,Wood's rose,Rosa woodsii,Natural,0,0,0,0,1
+2022,Spring,SageBrush,Asteraceae,White tidy tips,Layia glandulosa ,Natural,0,0,1,1,0
+2022,Spring,SageBrush,Loasaceae,Whitestem blazingstar,Mentzelia albicaulis,Natural,0,1,1,1,0
+2022,Spring,SageBrush,Rosaceae,Antelope bitterbrush,Purshia tridentata ,Natural,0,1,1,1,0
+2022,Spring,SageBrush,Amaranthaceae,Spiny hopsage,Grayia spinosa,Natural,0,1,1,0,0
+2022,Spring,SageBrush,Asteraceae,Rough eyelashweed,Blepharipappus scaber ,Natural,0,1,1,0,0
+2022,Spring,SageBrush,Boraginaceae,Fiddleneck,Amsinckia tessellata ,Natural,0,1,1,1,1
+2022,Spring,SageBrush,Fabaceae,Lupine,Lupinus sp.,Natural,0,1,1,0,0
+2022,Spring,SageBrush,Loasaceae,Veatch's blazingstar,Mentzelia veatchiana,Natural,0,0,1,1,0
+2022,Spring,SageBrush,Fabaceae,Shaggy milkvestch,Astragalus malacus,Natural,0,0,0,1,1
+2022,Spring,SageBrush,Asteraceae,Silverpuffs,Uropappus lindleyi,Natural,0,0,0,0,1
+2022,Spring,SageBrush,Valerianaceae,Longhorn sealblush,Plectritis macrocerca,Natural,0,0,1,0,0
+2022,Spring,SageBrush,Brassicaceae,Reflexed rockcress,Boechera retrofracta,Natural,0,0,1,1,1
+2022,Spring,SageBrush,Loasaceae,Whitestem blazingstar,Mentzelia albicaulis,Natural,0,1,1,1,0
+2022,Spring,SageBrush,Polemoniaceae,Cold desert phlox,Phlox stansburyi,Natural,0,0,1,1,0
+2022,Spring,SageBrush,Amaryllidaceae,Great Basin muilla,Muilla transmontana,Natural,0,1,1,0,0
+2022,Spring,SageBrush,Asteraceae,Western hawksbeard,Crepis occidentalis,Natural,0,1,1,0,0
+2022,Spring,SageBrush,Boraginaceae,Wingnut cryptantha,Cryptantha pterocarya,Natural,0,1,1,1,0
+2022,Spring,SageBrush,Boraginaceae,Moth combseed,Pectocarya setosa,Natural,0,1,1,1,0
+2022,Spring,SageBrush,Polemoniaceae,Nevada gilia,Gilia brecciarum,Natural,0,0,1,0,0
+2022,Spring,SageBrush,Asteraceae,Horsebrush,Tetradymia sp.,Natural,1,0,0,0,0
+2022,Spring,SageBrush,Amaryllidaceae,Twinleaf onion,Allium anceps,Natural,0,0,0,1,1
+2022,Spring,SageBrush,Orobanchaceae,Desert paintbrush,Castilleja chromosa,Natural,0,0,1,0,0
+2022,Spring,SageBrush,Rosaceae,Desert peach,Prunus andersonii,Natural,0,0,0,1,0
+2022,Fall,SageBrush,Asteraceae,Big sagebrush,Artemisia tridentata,Natural,0,1,1,1,0
+2022,Fall,SageBrush,Asteraceae,Yellow rabbitbrush,Chrysothamnus viscidiflorus,Natural,1,1,1,1,0
+2022,Fall,SageBrush,Asteraceae,Rubber rabbitbrush,Ericameria nauseosa,Natural,0,0,1,0,0
+2022,Fall,SageBrush,Orobanchaceae,King's bird's beak,Cordylanthus kingii,Natural,1,1,0,0,0
+2023,Spring,Forest/Grassland,Boraginaceae,Longleaf phlox,Phlox longifolia,Natural,0,0,1,1,0
+2023,Spring,Forest/Grassland,Valerianaceae,Longhorn sealblush,Plectritis macrocerca,Natural,0,1,1,1,1
+2023,Spring,Forest/Grassland,Fabaceae,Humboldt river milkvetch,Astragalus iodanthus,Natural,0,1,1,0,0
+2023,Spring,Forest/Grassland,Brassicaceae,Sand fringepod,Thysanocarpus curvipes,Natural,0,1,1,1,0
+2023,Spring,Forest/Grassland,Melanthiaceae,Foothill deathcamas,Toxicoscordion paniculatum,Natural,0,0,1,0,0
+2023,Spring,Forest/Grassland,Poaceae,Pine bluegrass,Poa secunda,Natural,0,1,1,0,0
+2023,Spring,Forest/Grassland,Plantaginaceae,Maiden blue eyed Mary,Collinsia parviflora,Natural,0,0,1,0,0
+2023,Spring,Forest/Grassland,Rosaceae,Desert peach,Prunus andersonii,Natural,0,0,1,0,0
+2023,Spring,Forest/Grassland,Boraginaceae,Fiddleneck,Amsinckia tessellata ,Natural,1,1,1,1,1
+2023,Spring,Forest/Grassland,Amaryllidaceae,Twinleaf onion,Allium anceps,Natural,0,0,0,1,1
+2023,Fall,Forest/Grassland,Asteraceae,Twinleaf onion,Allium anceps,Natural,1,1,1,1,0
+2023,Fall,Forest/Grassland,Asteraceae,Rubber rabbitbrush,Ericameria nauseosa,Natural,1,1,1,1,0
+2023,Fall,Forest/Grassland,Apocynaceae,Narrowleaf milkweed,Asclepias fascicularis,Natural,0,1,0,1,1
+2023,Fall,Forest/Grassland,Onagraceae,Panicled willowherb,Epilobium brachycarpum,Natural,0,0,0,1,0
+2023,Fall,Forest/Grassland,Asteraceae,Big sagebrush,Artemisia tridentata,Natural,0,1,0,0,0
+2023,Spring,Riparian/Wetland,Poaceae,Pine bluegrass,Poa secunda,Natural,1,0,0,0,0
+2023,Spring,Riparian/Wetland,Salicaceae,Willow,Salix sp.,Natural,0,1,1,0,0
+2023,Fall,Riparian/Wetland,Asteraceae,Rubber rabbitbrush,Ericameria nauseosa,Natural,0,0,1,0,0
+2023,Fall,Riparian/Wetland,Asteraceae,Western goldenrod,Euthamia occidentalis,Natural,0,0,0,0,1
+2023,Fall,Riparian/Wetland,Rosaceae,Wood's rose,Rosa woodsii,Natural,0,0,0,0,1
+2023,Fall,Riparian/Wetland,Asteraceae,Yellow rabbitbrush,Chrysothamnus viscidiflorus,Natural,0,0,1,1,0
+2023,Fall,Riparian/Wetland,Onagraceae,Panicled willowherb,Epilobium brachycarpum,Natural,0,0,0,1,0
+2023,Spring,SageBrush,Poaceae,Pine bluegrass,Poa secunda,Natural,0,1,1,1,0
+2023,Spring,SageBrush,Amaryllidaceae,Dark red onion,Allium atrorubens,Natural,1,0,0,0,0
+2023,Spring,SageBrush,Ranunculaceae,Larkspur,Delphinium sp.,Natural,0,0,1,0,0
+2023,Spring,SageBrush,Orobanchaceae,Desert paintbrush,Castilleja chromosa,Natural,0,1,1,0,0
+2023,Spring,SageBrush,Boraginaceae,Wingnut cryptantha,Cryptantha pterocarya,Natural,0,0,1,0,0
+2023,Spring,SageBrush,Asteraceae,Whitedaisy tidytips,Layia glandulosa,Natural,0,0,1,0,0
+2023,Spring,SageBrush,Boraginaceae,Bristly fiddleneck,Amsinckia tessellata ,Natural,0,1,1,1,0
+2023,Spring,SageBrush,Amaranthaceae,Spiny hopsage,Grayia spinosa,Natural,0,0,1,0,0
+2023,Spring,SageBrush,Boraginaceae,Slender phlox,Microsteris gracilis,Natural,0,0,1,0,0
+2023,Spring,SageBrush,Asteraceae,Rough eyelashweed,Blepharipappus scaber,Natural,0,0,1,1,0
+2023,Spring,SageBrush,Polemoniaceae,Cold desert phlox,Phlox stansburyi,Natural,0,0,1,0,0
+2023,Spring,SageBrush,Fabaceae,Shaggy milkvestch,Astragalus malacus,Natural,0,0,1,0,0
+2023,Fall,SageBrush,Asteraceae,Rubber rabbitbrush,Ericameria nauseosa,Natural,0,0,1,1,0
+2023,Fall,SageBrush,Asteraceae,Big sagebrush,Artemisia tridentata,Natural,0,0,1,0,0
+2023,Fall,SageBrush,Asteraceae,Yellow rabbitbrush,Chrysothamnus viscidiflorus,Natural,0,0,1,1,0
+2023,Fall,SageBrush,Asteraceae,Broom snakeweed,Gutierrezia sarothrae,Natural,0,0,1,0,0
+2023,Fall,SageBrush,Onagraceae,Panicled willowherb,Epilobium brachycarpum,Natural,0,0,1,1,0
+2023,Fall,SageBrush,Orobanchaceae,Heller's Bird's-Beak,Cordylanthus kingii,Natural,0,0,0,1,1
