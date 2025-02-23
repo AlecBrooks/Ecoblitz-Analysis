@@ -5,7 +5,7 @@ date: "2025-02-23"
 output: html_document
 ---
 
-<center><h1>Snow Analysis</h1>
+<center><h1>Winter Snow Analysis</h1></center>
 <hr style="border: 2px solid black; width: 50%;">
 
 ```{r setup1, echo=FALSE, eval=TRUE, results='hide', message=FALSE, warning=FALSE}
@@ -68,7 +68,8 @@ for (year in 2021:2023) {
 colors <- c("#1f78b4", "#33a02c", "#e31a1c") 
 ```
 
-<center><h2>Stats</h2>
+<center><h2>Stats</h2></center>
+<hr style="border: 0.5px solid black; width: 75%;">
 
 ```{r 1.1, include=TRUE,echo=FALSE, message=FALSE, warning=FALSE}
 corTable <- data.frame(
@@ -101,7 +102,8 @@ knitr::kable(as.data.frame(summary(aov(SNOW_WC ~ factor(YEAR), data = s))[[1]]),
 knitr::kable(TukeyHSD(aov(SNOW_WC ~ factor(YEAR), data = s))[["factor(YEAR)"]], caption = "TukeyHSD Spring (SNOW_WC ~ factor(YEAR))")
 ```
 
-<center><h2>Plots</h2>
+<center><h2>Plots</h2></center>
+<hr style="border: 0.5px solid black; width: 75%;">
 
 ```{r 1.2, include=TRUE,echo=FALSE, message=FALSE, warning=FALSE, fig.width=13}
 ################################# WINTER #######################################
@@ -188,10 +190,16 @@ rm(year)
 #       col = colors, lwd = 2, bty = "n")
 ```
 
-<center><h1>Temperature Analysis</h1>
+<center><h2>Conclusion</h2></center>
+<hr style="border: 0.5px solid black; width: 75%;">
+
+<p>The results of our ANOVA and Tukey HSD tests indicate that snow water content (SNOW_WC) was significantly different across the years 2021, 2022, and 2023, with 2023 showing a much higher snowfall than the previous two years. The extremely small p-values (p < 2e-16) suggest that these differences are not random chance but rather a real and substantial change in snowfall patterns. The statistical significance of YEAR used as a predictor variable indicates that winter snowpack and temperatures play a critical role in shaping ecological conditions for the following spring bloom season, particularly through nighttime low temperatures that regulate seed germination and soil moisture from slow snowmelt. Given that spring bloomers are more sensitive to these factors, the sharp increase in snowpack and the colder temperatures in 2023 likely created conditions that influenced which species germinated and overall blooming cycles. In contrast, fall bloomers are better adapted to extreme conditions, including drought and high temperatures, meaning their germination remains more stable over multiple years despite fluctuations in winter precipitation and temperatures. These findings reinforce that winter conditions primarily influence spring bloom dynamics, while fall species tend to exhibit greater resilience to annual weather variation.</p>
+
+<center><h1>Temperature Analysis</h1></center>
 <hr style="border: 2px solid black; width: 50%;">
 
-<center><h2>Seasonal</h2>
+<center><h2>Seasonal</h2></center>
+<hr style="border: 0.5px solid black; width: 75%;">
 
 ```{r setup2, echo=FALSE, eval=TRUE, results='hide', message=FALSE, warning=FALSE}
 #install.packages('lubridate')
@@ -236,39 +244,40 @@ Fall2021_2023_week <- Fall_week[Fall_week$YEAR == "2021"|Fall_week$YEAR == "2022
 table(Fall2021_2023_week$YEAR)
 ```
 
-<center><h3>Stats</h3>
+<center><h3>Stats</h3></center>
+<hr style="border: 0.5px solid black; width: 75%;">
 
 ```{r 2.1, include=TRUE,echo=FALSE, message=FALSE, warning=FALSE}
 
 #result_ave_spring
 knitr::kable(as.data.frame(summary(aov(TEMP_AVERAGE ~ factor(YEAR), data = Spring))[[1]]), caption = "ANOVA Spring TEMP_AVERAGE ~ factor(YEAR))")
 knitr::kable(TukeyHSD(aov(TEMP_AVERAGE ~ factor(YEAR), data = Spring))[["factor(YEAR)"]], caption = "Tukey Spring (TEMP_AVERAGE ~ factor(YEAR))")
-#P = 0.0299, p < 0.05 significant 2023 is different 
+knitr::asis_output("**P = 0.0299, p < 0.05 significant 2023 is different**")
 
 #result_max_spring
 knitr::kable(as.data.frame(summary(aov(TEMP_MAX ~ factor(YEAR), data = Spring))[[1]]), caption = "ANOVA Spring TEMP_MAX ~ factor(YEAR)")
 knitr::kable(TukeyHSD(aov(TEMP_MAX ~ factor(YEAR), data = Spring))[["factor(YEAR)"]], caption = "Tukey Spring (TEMP_MAX ~ factor(YEAR))")
-#P = 0.0105, significant 2023 is different 
+knitr::asis_output("**P = 0.0105, significant 2023 is different **")
 
 #result_min_spring
 knitr::kable(as.data.frame(summary(aov(TEMP_MIN ~ factor(YEAR), data = Spring))[[1]]), caption = "ANOVA Spring TEMP_MIN ~ factor(YEAR)")
 knitr::kable(TukeyHSD(aov(TEMP_MIN ~ factor(YEAR), data = Spring))[["factor(YEAR)"]], caption = "Tukey Spring (TEMP_MIN ~ factor(YEAR))")
-#P = 0.238, NOT significant All same/similar
+knitr::asis_output("**P = 0.238, NOT significant All same/similar**")
 
 #result_ave_fall
 knitr::kable(as.data.frame(summary(aov(TEMP_AVERAGE ~ factor(YEAR), data = Fall))[[1]]), caption = "ANOVA Fall TEMP_AVERAGE ~ factor(YEAR)")
 knitr::kable(TukeyHSD(aov(Fall$TEMP_AVERAGE ~ factor(YEAR), data = Fall))[["factor(YEAR)"]], caption = "Fall (TEMP_AVERAGE ~ factor(YEAR))")
-#P < 0.05, P = 0.00418, significant, 2022 is different
+knitr::asis_output("**P < 0.05, P = 0.00418, significant, 2022 is different**")
 
 #result_max_fall
 knitr::kable(as.data.frame(summary(aov(TEMP_MAX ~ factor(YEAR), data = Fall))[[1]]), caption = "ANOVA Fall TEMP_MAX ~ factor(YEAR)")
 knitr::kable(TukeyHSD(aov(Fall$TEMP_MAX ~ factor(YEAR), data = Fall))[["factor(YEAR)"]], caption = "Tukey Fall (TEMP_MAX ~ factor(YEAR))")
-#P = 0.00314 significant 2022 is different
+knitr::asis_output("**P = 0.00314 significant 2022 is different**")
 
 #result_min_fall
 knitr::kable(as.data.frame(summary(aov(TEMP_MIN ~ factor(YEAR), data = Fall))[[1]]), caption = "ANOVA Fall TEMP_MIN ~ factor(YEAR)")
-knitr::kable(TukeyHSD(aov(Fall$TEMP_MIN ~ factor(YEAR), data = Fall))[["factor(YEAR)"]], caption = "Tukey Fall (TEMP_MIN ~ factor(YEAR)))
-#P = 0.00311 significant, 2022-2021 is different??"
+knitr::kable(TukeyHSD(aov(Fall$TEMP_MIN ~ factor(YEAR), data = Fall))[["factor(YEAR)"]], caption = "Tukey Fall (TEMP_MIN ~ factor(YEAR))")
+knitr::asis_output("**P = 0.00311 significant, 2022-2021 is different??**")
 
 
 ########### Conclusion: Fall 2022 and Spring 2023 were different ##########
@@ -298,7 +307,8 @@ knitr::kable(fall_mean_table, caption = "fall_mean_table - 2022 Fall was warmer 
 
 ```
 
-<center><h3>Plots</h3>
+<center><h3>Plots</h3></center>
+<hr style="border: 0.5px solid black; width: 75%;">
 
 ```{r 2.2, include=TRUE,echo=FALSE, message=FALSE, warning=FALSE, fig.width=13}
 par(mfrow = c(1,2))
@@ -346,45 +356,51 @@ matplot( Fall2021$DATE,  cbind(Fall2021$TEMP_MAX,
 legend(x='topleft', y=70, legend=c('FL21', 'FL22', 'FL23'), fill=c('red', 'blue', 'brown'))
 ```
 
-<center><h2>Week 1 Temperature Analysis</h2>
+<center><h2>Week 1 Temperature Analysis</h2></center>
+<hr style="border: 0.5px solid black; width: 75%;">
 
-<center><h3>Stats</h3>
+<center><h3>Stats</h3></center>
+<hr style="border: 0.5px solid black; width: 75%;">
 
 ```{r 2.3, include=TRUE,echo=FALSE, message=FALSE, warning=FALSE}
 
 #Spring Week 1 (TEMP_AVERAGE ~ factor(YEAR))
 knitr::kable(as.data.frame(summary(aov(TEMP_AVERAGE ~ factor(YEAR), data = Spring_week))[[1]]), caption = "ANOVA Spring week 1 - TEMP_AVERAGE ~ factor(YEAR)")
 knitr::kable(TukeyHSD(aov(TEMP_AVERAGE ~ factor(YEAR), data = Spring_week))[["factor(YEAR)"]], caption = "Tukey Spring week 1 - ANOVA(TEMP_AVERAGE ~ factor(YEAR))")
-#p = 0.000484, p<0.05 significant, 2021 is different with 90% sig level 
+knitr::asis_output("**P = 0.000484, P < 0.05 significant, 2021 is different with 90% sig level**")
 
 #Spring Week 1 (TEMP_MAX ~ factor(YEAR))
 knitr::kable(as.data.frame(summary(aov(TEMP_MAX ~ factor(YEAR), data = Spring_week))[[1]]), caption = "ANOVA Spring week 1 - TEMP_MAX ~ factor(YEAR)")
 knitr::kable(TukeyHSD(aov(TEMP_MAX ~ factor(YEAR), data = Spring_week))[["factor(YEAR)"]], caption = "Tukey Spring week 1 - ANOVA(TEMP_MAX ~ factor(YEAR))")
-#p = 0.00217, significant, 2021 is different with 90% sig level
+knitr::asis_output("**P = 0.00217, significant, 2021 is different with 90% sig level**")
 
 #Spring Week 1 (TEMP_MIN ~ factor(YEAR))
 knitr::kable(as.data.frame(summary(aov(TEMP_MIN ~ factor(YEAR), data = Spring_week))[[1]]), caption = "ANOVA Spring week 1 - TEMP_MIN ~ factor(YEAR)")
 knitr::kable(TukeyHSD(aov(TEMP_MIN ~ factor(YEAR), data = Spring_week))[["factor(YEAR)"]], caption = "Tukey Spring week 1 - ANOVA(TEMP_MIN ~ factor(YEAR))")
-#p = 0.0807, NOT significant, 2023-2021 is different
+knitr::asis_output("**P = 0.0807, NOT significant, 2023-2021 is different**")
 
 #Fall Week 1 (TEMP_AVERAGE ~ factor(YEAR))
 knitr::kable(as.data.frame(summary(aov(TEMP_AVERAGE ~ factor(YEAR), data = Fall_week))[[1]]), caption = "ANOVA Fall week 1 TEMP_AVERAGE ~ factor(YEAR)")
 knitr::kable(TukeyHSD(aov(TEMP_AVERAGE ~ factor(YEAR), data = Fall_week))[["factor(YEAR)"]], caption = "Tukey Fall week 1 - ANOVA(TEMP_AVERAGE ~ factor(YEAR))")
-#p < 0.05, p= 0.000479, significant, 2023 is different
+knitr::asis_output("**P < 0.05, P = 0.000479, significant, 2023 is different**")
+
 
 #Fall Week 1 (TEMP_MAX ~ factor(YEAR))
 knitr::kable(as.data.frame(summary(aov(TEMP_MAX ~ factor(YEAR), data = Fall_week))[[1]]), caption = "ANOVA Fall week 1 TEMP_MAX ~ factor(YEAR)")
 knitr::kable(TukeyHSD(aov(TEMP_MAX ~ factor(YEAR), data = Fall_week))[["factor(YEAR)"]], caption = "Tukey Fall week 1 Max - ANOVA(TEMP_MAX ~ factor(YEAR))")
-#p = 0.000185 significant, 2023 is different
+knitr::asis_output("**P = 0.000185 significant, 2023 is different**")
+
 
 #Fall Week 1 (TEMP_MIN ~ factor(YEAR))
 knitr::kable(as.data.frame(summary(aov(TEMP_MIN ~ factor(YEAR), data = Fall_week))[[1]]), caption = "ANOVA Fall week 1 TEMP_MIN ~ factor(YEAR)")
 knitr::kable(TukeyHSD(aov(TEMP_MIN ~ factor(YEAR), data = Fall_week))[["factor(YEAR)"]], caption = "Tukey Fall week 1 Min - ANOVA(TEMP_MIN ~ factor(YEAR))")
-#p = 0.177 NOT significant, All same 
+knitr::asis_output("**P = 0.177 NOT significant, All same**")
+
 
 ```
 
-<center><h3>Plots</h3>
+<center><h3>Plots</h3></center>
+<hr style="border: 0.5px solid black; width: 75%;">
 
 ```{r 2.4, include=TRUE,echo=FALSE, message=FALSE, warning=FALSE, fig.width=13}
 par(mfrow = c(1,2))
@@ -412,3 +428,8 @@ matplot( Fall2021_week$DATE,  cbind(Fall2021_week$TEMP_MIN,
                                       Fall2022_week$TEMP_MIN, Fall2023_week$TEMP_MIN),
          col = c("red", "blue", "brown"), type = "l", main = "Fall week 1 Min", xlab="", ylab="Min temp.")
 ```
+
+<center><h2>Conclusion</h2></center>
+<hr style="border: 0.5px solid black; width: 75%;">
+
+<p>Our temperature analysis reveals that Spring 2023 was significantly colder than previous years, with average and maximum temperatures showing a notable decline, particularly in Week 1, aligning with the observed low early-stage blooming. This suggests that spring species were impacted by colder temperatures and (in conjunction with the snow fall analysis) heavy snowfall, likely delaying growth. As spring bloomers are more sensitive to winter conditions, variation in nighttime low temperatures and soil moisture retention from slow snowmelt could explain the shifts in bloom timing and species. However, our analysis did not identify clear trends between temperature and total plant volume across years, suggesting that there may be an ecological threshold where additional moisture does not always lead to increased plant germination and growth. In contrast, fall temperatures fluctuated, with 2022 being significantly warmer than both 2021 and 2023, yet these variations did not disrupt fall bloom patterns. Since fall species are more adapted to germinating in harsh conditions—including high temperatures and low precipitation—their bloom cycles appear more consistent despite annual shifts in seasonal climate variables. These findings support the idea that spring bloomers experience more variability in response to weather patterns, whereas fall species exhibit greater resilience to changing environmental conditions.</p>
