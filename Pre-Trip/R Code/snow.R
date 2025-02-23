@@ -7,15 +7,15 @@
 library(readr)
 library(tidyr)
 
-wd <- read_csv("Weather Data 02-12-2025.csv")
+df <- read_csv("WeatherData_20250222.csv")
 
-w <- subset(wd,wd$SEASON=="Winter")
-s <- subset(wd,wd$SEASON=="Spring")
-f <- subset(wd,wd$SEASON=="Fall")
+w <- subset(df,df$SEASON=="Winter")
+s <- subset(df,df$SEASON=="Spring")
+f <- subset(df,df$SEASON=="Fall")
 
-w$DATE <- as.Date(w$DATE, format = "%m/%d/%Y")
-s$DATE <- as.Date(s$DATE, format = "%m/%d/%Y")
-f$DATE <- as.Date(f$DATE, format = "%m/%d/%Y")
+w$DATE <- as.Date(w$DATE, format="%Y-%m-%d")
+s$DATE <- as.Date(s$DATE, format="%Y-%m-%d")
+f$DATE <- as.Date(f$DATE, format="%Y-%m-%d")
 
 for (year in 2021:2024) {
   f_year <- subset(f, f$YEAR == year)

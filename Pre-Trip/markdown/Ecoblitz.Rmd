@@ -1,0 +1,368 @@
+---
+title: "Ecoblitz Weather & Flowering Phenology"
+author: "Eriko Sakamura, Alec Brooks, Seth Miller"
+date: "2025-02-23"
+output: html_document
+---
+
+<center><h1>Snow Analysis</h1>
+
+```{r setup1, echo=FALSE, eval=TRUE, results='hide', message=FALSE, warning=FALSE}
+#install.packages("readr")
+#install.packages("tidyr")
+#install.packages("here")
+
+library(readr)
+library(tidyr)
+library(here)
+
+setwd(here())
+df <- read_csv(here("Pre-Trip","DataSets", "WeatherData_20250222.csv"))
+
+w <- subset(df,df$SEASON=="Winter")
+s <- subset(df,df$SEASON=="Spring")
+f <- subset(df,df$SEASON=="Fall")
+
+w$DATE <- as.Date(w$DATE, format="%Y-%m-%d")
+s$DATE <- as.Date(s$DATE, format="%Y-%m-%d")
+f$DATE <- as.Date(f$DATE, format="%Y-%m-%d")
+
+for (year in 2021:2024) {
+  f_year <- subset(f, f$YEAR == year)
+  w_year <- subset(w, w$YEAR == year)
+  s_year <- subset(s, s$YEAR == year)
+  f_year$CYCLE_DATE <- as.Date(paste("2001", format(f_year$DATE, "%m-%d"), 
+                                     sep = "-"))
+  w_year$CYCLE_DATE <- 0
+  s_year$CYCLE_DATE <- as.Date(paste("2001", format(s_year$DATE, "%m-%d"), 
+                                     sep = "-"))
+  
+  w_year$CYCLE_DATE[w_year$MONTH == "Dec"] <- 
+    as.Date(paste("2000", format(
+      w_year$DATE[w_year$MONTH == "Dec"], "%m-%d"), sep = "-"))
+  
+  w_year$CYCLE_DATE[w_year$MONTH != "Dec"] <- 
+    as.Date(paste("2001", format(
+      w_year$DATE[w_year$MONTH != "Dec"], "%m-%d"), sep = "-"))
+  
+  w_year$CYCLE_DATE <- as.Date(w_year$CYCLE_DATE, origin = "1970-01-01")
+  
+  w_weekly <- aggregate(cbind(SNOW_WC, TEMP_AVERAGE) ~ WEEK, data = w_year, mean)
+  w_weekly$CYCLE_WEEK <- c(1:nrow(w_weekly))
+  
+  s_weekly <- aggregate(cbind(SNOW_WC, TEMP_AVERAGE) ~ WEEK, data = s_year, mean)
+  s_weekly$CYCLE_WEEK <- c(1:nrow(s_weekly))
+  
+  f_weekly <- aggregate(cbind(SNOW_WC, TEMP_AVERAGE) ~ WEEK, data = f_year, mean)
+  f_weekly$CYCLE_WEEK <- c(1:nrow(f_weekly))
+  
+  assign(paste0("f_", year), f_year)
+  assign(paste0("w_", year), w_year)
+  assign(paste0("s_", year), s_year)
+  assign(paste0("w_weekly_", year), w_weekly)
+  assign(paste0("s_weekly_", year), s_weekly)
+  assign(paste0("f_weekly_", year), f_weekly)
+  rm(w_year,f_year,s_year,year,w_weekly,s_weekly,f_weekly)
+}
+colors <- c("#1f78b4", "#33a02c", "#e31a1c", "#ff7f00") 
+```
+
+<center><h2>Stats</h2>
+
+```{r 1.1, include=TRUE,echo=FALSE, message=FALSE, warning=FALSE}
+corTable <- data.frame(
+  Year = 2021:2024,
+  Fall = numeric(length(2021:2024)),
+  Winter = numeric(length(2021:2024)),
+  Spring = numeric(length(2021:2024)) 
+)
+
+for (year in 2021:2024) {
+  
+  corTable[corTable$Year == year, "Fall"] <-  cor(get(paste0("f_", year))$TEMP_AVERAGE, get(paste0("f_", year))$SNOW_WC)
+  corTable[corTable$Year == year, "Winter"] <- cor(get(paste0("w_", year))$TEMP_AVERAGE, get(paste0("w_", year))$SNOW_WC)
+  corTable[corTable$Year == year, "Spring"] <- cor(get(paste0("s_", year))$TEMP_AVERAGE, get(paste0("s_", year))$SNOW_WC)
+  
+}
+
+knitr::kable(corTable, caption = "Correlation Matrix SNOW_WC ~ TEMP_AVERAGE")
+knitr::kable(TukeyHSD(aov(TEMP_AVERAGE ~ factor(YEAR), data = f))[["factor(YEAR)"]], caption = "TukeyHSD Fall (TEMP_AVERAGE ~ factor(YEAR))")
+knitr::kable(TukeyHSD(aov(TEMP_AVERAGE ~ factor(YEAR), data = w))[["factor(YEAR)"]], caption = "TukeyHSD Winter (TEMP_AVERAGE ~ factor(YEAR))")
+knitr::kable(TukeyHSD(aov(TEMP_AVERAGE ~ factor(YEAR), data = s))[["factor(YEAR)"]], caption = "TukeyHSD Spring (TEMP_AVERAGE ~ factor(YEAR))")
+```
+
+<center><h2>Plots</h2>
+
+```{r 1.2, include=TRUE,echo=FALSE, message=FALSE, warning=FALSE, fig.width=13}
+################################# WINTER #######################################
+par(mfrow = c(1,2))
+#Time Series Overlay of Winter Snow
+plot(w_2021$CYCLE_DATE, w_2021$SNOW_WC, type = "l", 
+     xlab = "Date (Aligned)", ylab = "Snow Water Content (SNOW_WC)", 
+     main = "Winter Snow Water Content 2021 - 2023", col = colors[1], lwd = 2,
+     ylim = c(min(w_2024$SNOW_WC), max(w_2023$SNOW_WC)))
+lines(w_2022$CYCLE_DATE, w_2022$SNOW_WC, col = colors[2], lwd = 2)
+lines(w_2023$CYCLE_DATE, w_2023$SNOW_WC, col = colors[3], lwd = 2)
+lines(w_2024$CYCLE_DATE, w_2024$SNOW_WC, col = colors[4], lwd = 2)
+legend("topleft", legend = c("2021", "2022", "2023", "2024"), 
+       col = colors, lwd = 2, bty = "n")
+
+#Time Series Overlay of Temperature
+plot(w_weekly_2021$CYCLE_WEEK, w_weekly_2021$TEMP_AVERAGE, type = "l", 
+     xlab = "Week", ylab = "Temperature Average (TEMP_AVERAGE)", 
+     main = "Average Weekly Temperature 2021 - 2024", 
+     col = colors[1], lwd = 2,
+     ylim = c(min(w_weekly_2023$TEMP_AVERAGE), max(w_weekly_2022$TEMP_AVERAGE)))
+lines(w_weekly_2022$CYCLE_WEEK, w_weekly_2022$TEMP_AVERAGE, col = colors[2], lwd = 2)
+lines(w_weekly_2023$CYCLE_WEEK, w_weekly_2023$TEMP_AVERAGE, col = colors[3], lwd = 2)
+lines(w_weekly_2024$CYCLE_WEEK, w_weekly_2024$TEMP_AVERAGE, col = colors[4], lwd = 2)
+legend("topleft", legend = c("2021", "2022", "2023", "2024"), 
+       col = colors, lwd = 2, bty = "n")
+
+# Temperature to Snow Water Content (scaled)
+for (year in 2021:2024) {
+  plot(get(paste0("w_weekly_", year))$CYCLE_WEEK, 
+       scale(get(paste0("w_weekly_", year))$TEMP_AVERAGE), type = "l", 
+       col = colors[1], lwd = 2, 
+       xlab = "Week", ylab = "Scaled Values", 
+       main = paste0("Average Weekly TEMP_AVERAGE and SNOW_WC:", year))
+  lines(get(paste0("w_weekly_", year))$CYCLE_WEEK, 
+        scale(get(paste0("w_weekly_", year))$SNOW_WC), col = colors[4],  
+        lty = 2, lwd = 2)
+  legend("topleft", legend = c("TEMP_AVERAGE", "SNOW_WC"), 
+         col = c(colors[1], colors[4]), lty = c(1, 2), lwd = 2, bty = "n", 
+         cex = 0.8)
+}
+rm(year)
+
+aggregated_data <- aggregate(SNOW_WC ~ MONTH + YEAR, data = w, 
+                             FUN = mean, na.rm = TRUE)
+reshaped_data <- reshape(aggregated_data, timevar = "YEAR", 
+                         idvar = "MONTH", direction = "wide")
+rownames(reshaped_data) <- reshaped_data$MONTH
+reshaped_data <- reshaped_data[, -1]
+data_matrix <- t(reshaped_data)
+barplot(as.matrix(data_matrix), beside = TRUE, col = 
+          colors, 
+        legend.text = c("2021", "2022", "2023", "2024"), 
+        args.legend = list(title = "", x = "topleft"),
+        main = "Grouped Bar Chart of SNOW_WC by Month and Cycle", 
+        xlab = "Month", ylab = "Snow Water Content (SNOW_WC)", 
+        names.arg = colnames(data_matrix))
+rm(aggregated_data, data_matrix, reshaped_data)
+
+################################ SPRING ########################################
+
+plot(s_weekly_2021$CYCLE_WEEK, s_weekly_2021$TEMP_AVERAGE, type = "l", 
+     xlab = "Week", ylab = "Weekly Temperature Averages (TEMP_AVERAGE)", 
+     main = "Spring Weekly Temperature Averages 2021 - 2024", 
+     col = colors[1], lwd = 2,
+     ylim = c(min(s_weekly_2023$TEMP_AVERAGE), max(s_weekly_2021$TEMP_AVERAGE)))
+lines(s_weekly_2022$CYCLE_WEEK, s_weekly_2022$TEMP_AVERAGE, col = colors[2], lwd = 2)
+lines(s_weekly_2023$CYCLE_WEEK, s_weekly_2023$TEMP_AVERAGE, col = colors[3], lwd = 2)
+lines(s_weekly_2024$CYCLE_WEEK, s_weekly_2024$TEMP_AVERAGE, col = colors[4], lwd = 2)
+legend("topleft", legend = c("2021", "2022", "2023", "2024"), 
+       col = colors, lwd = 2, bty = "n")
+
+################################# FALL #########################################
+
+plot(f_weekly_2021$CYCLE_WEEK, f_weekly_2021$TEMP_AVERAGE, type = "l", 
+     xlab = "Week", ylab = "Weekly Temperature Averages (TEMP_AVERAGE)", 
+     main = "Fall Weekly Temperature Averages 2021 - 2024", 
+     col = colors[1], lwd = 2,
+     ylim = c(min(f_weekly_2021$TEMP_AVERAGE), max(f_weekly_2022$TEMP_AVERAGE)))
+lines(f_weekly_2022$CYCLE_WEEK, f_weekly_2022$TEMP_AVERAGE, col = colors[2], lwd = 2)
+lines(f_weekly_2023$CYCLE_WEEK, f_weekly_2023$TEMP_AVERAGE, col = colors[3], lwd = 2)
+lines(f_weekly_2024$CYCLE_WEEK, f_weekly_2024$TEMP_AVERAGE, col = colors[4], lwd = 2)
+legend("bottomleft", legend = c("2021", "2022", "2023", "2024"), 
+       col = colors, lwd = 2, bty = "n")
+```
+
+<center><h1>Temperature Analysis</h1>
+
+
+<center><h2>Seasonal</h2>
+
+```{r setup2, echo=FALSE, eval=TRUE, results='hide', message=FALSE, warning=FALSE}
+#install.packages('lubridate')
+
+library(readr)
+library(lubridate)
+library(dplyr)
+
+data <- read_csv(here("Pre-Trip","DataSets", "WeatherData_20250222.csv"))
+data$DATE <- as.Date(data$DATE, format="%Y-%m-%d")
+data_2021_2023 <- data[data$YEAR == "2021"|data$YEAR == "2022"| data$YEAR == "2023" ,]
+
+Spring2021 <- subset(data, DATE >= as.Date("2021-03-10") & DATE <= as.Date("2021-05-10"))
+Spring2022 <- subset(data, DATE >= as.Date("2022-03-10") & DATE <= as.Date("2022-05-10"))
+Spring2023 <- subset(data, DATE >= as.Date("2023-03-10") & DATE <= as.Date("2023-05-10"))
+Spring <- rbind(Spring2021, Spring2022, Spring2023)
+Spring$YEAR <- year(Spring$DATE)
+Spring2021_2023 <- Spring[Spring$YEAR == "2021"|Spring$YEAR == "2022"| Spring$YEAR == "2023" ,]
+
+Fall2021 <- subset(data, DATE >= as.Date("2021-08-10") & DATE <= as.Date("2021-10-10"))
+Fall2022 <- subset(data, DATE >= as.Date("2022-08-10") & DATE <= as.Date("2022-10-10"))
+Fall2023 <- subset(data, DATE >= as.Date("2023-08-10") & DATE <= as.Date("2023-10-10"))
+Fall <- rbind(Fall2021, Fall2022, Fall2023)
+Fall$YEAR <- year(Fall$DATE)
+Fall2021_2023 <- Fall[Fall$YEAR == "2021"|Fall$YEAR == "2022"| Fall$YEAR == "2023" ,]
+
+Spring2021_week <- subset(data, DATE >= as.Date("2021-05-04") & DATE <= as.Date("2021-05-10"))
+Spring2022_week <- subset(data, DATE >= as.Date("2022-05-03") & DATE <= as.Date("2022-05-09"))
+Spring2023_week <- subset(data, DATE >= as.Date("2023-05-02") & DATE <= as.Date("2023-05-08"))
+
+Spring_week <- rbind(Spring2021_week, Spring2022_week, Spring2023_week)
+Spring_week$YEAR <- year(Spring_week$DATE)
+Spring2021_2023_week <- Spring_week[Spring_week$YEAR == "2021"|Spring_week$YEAR == "2022"| Spring_week$YEAR == "2023" ,]
+
+Fall2021_week <- subset(data, DATE >= as.Date("2021-08-29") & DATE <= as.Date("2021-09-04"))
+Fall2022_week <- subset(data, DATE >= as.Date("2022-09-27") & DATE <= as.Date("2022-10-03"))
+Fall2023_week <- subset(data, DATE >= as.Date("2023-09-26") & DATE <= as.Date("2023-10-02"))
+
+Fall_week <- rbind(Fall2021_week, Fall2022_week, Fall2023_week)
+Fall_week$YEAR <- year(Fall_week$DATE)
+Fall2021_2023_week <- Fall_week[Fall_week$YEAR == "2021"|Fall_week$YEAR == "2022"| Fall_week$YEAR == "2023" ,]
+table(Fall2021_2023_week$YEAR)
+```
+
+<center><h3>Stats</h3>
+
+```{r 2.1, include=TRUE,echo=FALSE, message=FALSE, warning=FALSE}
+
+knitr::kable(TukeyHSD(aov(TEMP_AVERAGE ~ factor(YEAR), data = Spring))[["factor(YEAR)"]], caption = "tukey_result_ave_spring P= 0.0299, p<0.05 significant 2023 is different ")
+
+knitr::kable(TukeyHSD(aov(TEMP_MAX ~ factor(YEAR), data = Spring))[["factor(YEAR)"]], caption = "tukey_result_max_spring p = 0.0105, significant 2023 is different ")
+
+knitr::kable(TukeyHSD(aov(TEMP_MIN ~ factor(YEAR), data = Spring))[["factor(YEAR)"]], caption = "tukey_result_min_spring - p= 0.238, NOT significant All same/similar")
+
+knitr::kable(tukey_result_fall <- TukeyHSD(aov(Fall$TEMP_AVERAGE ~ factor(YEAR), data = Fall))[["factor(YEAR)"]], caption = "tukey_result_fall - p< 0.05, p= 0.00418, significant, 2022 is different")
+
+knitr::kable(TukeyHSD(aov(Fall$TEMP_MAX ~ factor(YEAR), data = Fall))[["factor(YEAR)"]], caption = "anova_fall_max - p=0.00314 significant 2022 is different")
+
+knitr::kable(TukeyHSD(aov(Fall$TEMP_MIN ~ factor(YEAR), data = Fall))[["factor(YEAR)"]], caption = "tukey_fall_min - p=0.00311 significant, 2022-2021 is different??")
+
+
+########### Conclusion: Fall 2022 and Spring 2023 were different ##########
+
+# Spring mean table
+spring_mean_table <- data.frame(
+  Year = c(2021, 2022, 2023),
+  Mean_Temp = c(
+    mean(Spring$TEMP_AVERAGE[Spring$YEAR == 2021]),
+    mean(Spring$TEMP_AVERAGE[Spring$YEAR == 2022]),
+    mean(Spring$TEMP_AVERAGE[Spring$YEAR == 2023])
+  )
+)
+
+# Fall mean table
+fall_mean_table <- data.frame(
+  Year = c(2021, 2022, 2023),
+  Mean_Temp = c(
+    mean(Fall$TEMP_AVERAGE[Fall$YEAR == 2021]),
+    mean(Fall$TEMP_AVERAGE[Fall$YEAR == 2022]),
+    mean(Fall$TEMP_AVERAGE[Fall$YEAR == 2023])
+  )
+)
+
+knitr::kable(spring_mean_table, caption = "spring_mean_table - 2023 Spring was cooler -4")
+knitr::kable(fall_mean_table, caption = "fall_mean_table - 2022 Fall was warmer +4")
+
+```
+
+<center><h3>Plots</h3>
+
+```{r 2.2, include=TRUE,echo=FALSE, message=FALSE, warning=FALSE, fig.width=13}
+par(mfrow = c(1,2))
+matplot( Spring2021$DATE,  cbind(Spring2021$TEMP_AVERAGE, 
+                                 Spring2022$TEMP_AVERAGE, Spring2023$TEMP_AVERAGE),
+         col = c("red", "blue", "brown"), type = "l",
+         main = "Average Spring Temp.",
+         xlab="date", ylab="Average temp.")
+legend(x='topleft', y=70, legend=c('SP21', 'SP22', 'SP23'), fill=c('red', 'blue', 'brown'))
+matplot( Fall2021$DATE,  cbind(Fall2021$TEMP_AVERAGE, 
+                                 Fall2022$TEMP_AVERAGE, Fall2023$TEMP_AVERAGE),
+         col = c("red", "blue", "brown"), type = "l",
+         main = "Average Fall Temp.",
+         xlab="date", ylab="Average temp.")
+legend(x='topleft', y=70, legend=c('FL21', 'FL22', 'FL23'), fill=c('red', 'blue', 'brown'))
+
+
+par(mfrow = c(1,2))
+matplot( Spring2021$DATE,  cbind(Spring2021$TEMP_MIN, 
+                                 Spring2022$TEMP_MIN, Spring2023$TEMP_MIN),
+         col = c("red", "blue", "brown"), type = "l",
+         main = "Min Spring Temp.",
+         xlab="date", ylab="Min temp.")
+legend(x='topleft', y=70, legend=c('SP21', 'SP22', 'SP23'), fill=c('red', 'blue', 'brown'))
+
+matplot( Fall2021$DATE,  cbind(Fall2021$TEMP_MIN, 
+                                 Fall2022$TEMP_MIN, Fall2023$TEMP_MIN),
+         col = c("red", "blue", "brown"), type = "l",
+         main = "Min Fall Temp.",
+         xlab="date", ylab="Min temp.")
+legend(x='topleft', y=70, legend=c('FL21', 'FL22', 'FL23'), fill=c('red', 'blue', 'brown'))
+
+par(mfrow = c(1,2))
+matplot( Spring2021$DATE,  cbind(Spring2021$TEMP_MAX, 
+                                 Spring2022$TEMP_MAX, Spring2023$TEMP_MAX),
+         col = c("red", "blue", "brown"), type = "l",
+         main = "Max Spring Temp.",
+         xlab="date", ylab="Max temp.")
+legend(x='topleft', y=70, legend=c('SP21', 'SP22', 'SP23'), fill=c('red', 'blue', 'brown'))
+matplot( Fall2021$DATE,  cbind(Fall2021$TEMP_MAX, 
+                                 Fall2022$TEMP_MAX, Fall2023$TEMP_MAX),
+         col = c("red", "blue", "brown"), type = "l",
+         main = "Max Fall Temp.",
+         xlab="date", ylab="Max temp.")
+legend(x='topleft', y=70, legend=c('FL21', 'FL22', 'FL23'), fill=c('red', 'blue', 'brown'))
+```
+
+<center><h2>Week 1 Temperature Analysis</h2>
+
+<center><h3>Stats</h3>
+
+```{r 2.3, include=TRUE,echo=FALSE, message=FALSE, warning=FALSE}
+
+knitr::kable(TukeyHSD(aov(TEMP_AVERAGE ~ factor(YEAR), data = Spring_week))[["factor(YEAR)"]], caption = "Spring_week_Average - P= 0.000484, p<0.05 significant, 2021 is different with 90% sig level ")
+
+knitr::kable(TukeyHSD(aov(TEMP_MAX ~ factor(YEAR), data = Spring_week))[["factor(YEAR)"]], caption = "Spring_week_Max - p = 0.00217, significant, 2021 is different with 90% sig level")
+
+knitr::kable(TukeyHSD(aov(TEMP_MIN ~ factor(YEAR), data = Spring_week))[["factor(YEAR)"]], caption = "Spring_week_Min - p= 0.0807, NOT significant, 2023-2021 is different")
+
+knitr::kable(TukeyHSD(aov(TEMP_AVERAGE ~ factor(YEAR), data = Fall_week))[["factor(YEAR)"]], caption = "Fall_week_Average - p< 0.05, p= 0.000479, significant, 2023 is different")
+
+knitr::kable(TukeyHSD(aov(TEMP_MAX ~ factor(YEAR), data = Fall_week))[["factor(YEAR)"]], caption = "Fall_week_Max - p=0.000185 significant, 2023 is different")
+
+knitr::kable(TukeyHSD(aov(TEMP_MIN ~ factor(YEAR), data = Fall_week))[["factor(YEAR)"]], caption = "Fall_week_Min - p=0.177 NOT significant, All same ")
+
+```
+
+<center><h3>Plots</h3>
+
+```{r 2.4, include=TRUE,echo=FALSE, message=FALSE, warning=FALSE, fig.width=13}
+par(mfrow = c(1,2))
+matplot( Spring2021_week$DATE,  cbind(Spring2021_week$TEMP_AVERAGE, 
+                                      Spring2022_week$TEMP_AVERAGE, Spring2023_week$TEMP_AVERAGE),
+         col = c("red", "blue", "brown"), type = "l", main = "Spring week 1 Average", xlab="", ylab="Average temp.")
+
+matplot( Fall2021_week$DATE,  cbind(Fall2021_week$TEMP_AVERAGE, 
+                                      Fall2022_week$TEMP_AVERAGE, Fall2023_week$TEMP_AVERAGE),
+         col = c("red", "blue", "brown"), type = "l", main = "Fall week 1 Average", xlab="", ylab="Average temp.")
+
+matplot( Spring2021_week$DATE,  cbind(Spring2021_week$TEMP_MAX, 
+                                      Spring2022_week$TEMP_MAX, Spring2023_week$TEMP_MAX),
+         col = c("red", "blue", "brown"), type = "l", main = "Spring week 1 Max", xlab="", ylab="Max temp.")
+
+matplot( Fall2021_week$DATE,  cbind(Fall2021_week$TEMP_MAX, 
+                                      Fall2022_week$TEMP_MAX, Fall2023_week$TEMP_MAX),
+         col = c("red", "blue", "brown"), type = "l", main = "Fall week 1 Max", xlab="", ylab="Max temp.")
+
+matplot( Spring2021_week$DATE,  cbind(Spring2021_week$TEMP_MIN, 
+                                      Spring2022_week$TEMP_MIN, Spring2023_week$TEMP_MIN),
+         col = c("red", "blue", "brown"), type = "l", main = "Spring week 1 Min", xlab="", ylab="Min temp.")
+
+matplot( Fall2021_week$DATE,  cbind(Fall2021_week$TEMP_MIN, 
+                                      Fall2022_week$TEMP_MIN, Fall2023_week$TEMP_MIN),
+         col = c("red", "blue", "brown"), type = "l", main = "Fall week 1 Min", xlab="", ylab="Min temp.")
+```
