@@ -283,28 +283,24 @@ knitr::asis_output("**P = 0.00311 significant, 2022-2021 is different??**")
 
 ########### Conclusion: Fall 2022 and Spring 2023 were different ##########
 
-# Spring mean table
-spring_mean_table <- data.frame(
+# Combined mean temperature table for Spring and Fall
+mean_temp_table <- data.frame(
   Year = c(2021, 2022, 2023),
-  Mean_Temp = c(
+  Spring_Mean_Temp = c(
     mean(Spring$TEMP_AVERAGE[Spring$YEAR == 2021]),
     mean(Spring$TEMP_AVERAGE[Spring$YEAR == 2022]),
     mean(Spring$TEMP_AVERAGE[Spring$YEAR == 2023])
-  )
-)
-
-# Fall mean table
-fall_mean_table <- data.frame(
-  Year = c(2021, 2022, 2023),
-  Mean_Temp = c(
+  ),
+  Fall_Mean_Temp = c(
     mean(Fall$TEMP_AVERAGE[Fall$YEAR == 2021]),
     mean(Fall$TEMP_AVERAGE[Fall$YEAR == 2022]),
     mean(Fall$TEMP_AVERAGE[Fall$YEAR == 2023])
   )
 )
 
-knitr::kable(spring_mean_table, caption = "spring_mean_table - 2023 Spring was cooler -4")
-knitr::kable(fall_mean_table, caption = "fall_mean_table - 2022 Fall was warmer +4")
+# Display the table using knitr
+knitr::kable(mean_temp_table, caption = "Mean Temperatures for Spring and Fall (2021-2023)")
+
 
 ```
 
