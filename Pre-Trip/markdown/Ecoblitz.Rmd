@@ -2,7 +2,8 @@
 title: "Ecoblitz Weather & Flowering Phenology"
 author: "Eriko Sakamura, Alec Brooks, Seth Miller"
 date: "2025-02-23"
-output: html_document
+output: pdf_document
+#output: html_document
 ---
 
 <center><h1>Snow Analysis</h1>
