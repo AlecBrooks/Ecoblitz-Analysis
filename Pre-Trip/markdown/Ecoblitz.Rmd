@@ -6,7 +6,8 @@ output: pdf_document
 #output: html_document
 ---
 
-<center><h1>Snow Analysis</h1>
+<center><h1>Winter Snow Analysis</h1></center>
+<hr style="border: 2px solid black; width: 50%;">
 
 ```{r setup1, echo=FALSE, eval=TRUE, results='hide', message=FALSE, warning=FALSE}
 #install.packages("readr")
@@ -20,15 +21,15 @@ library(here)
 setwd(here())
 df <- read_csv(here("Pre-Trip","DataSets", "WeatherData_20250222.csv"))
 
-w <- subset(df,df$SEASON=="Winter")
-s <- subset(df,df$SEASON=="Spring")
-f <- subset(df,df$SEASON=="Fall")
+w <- subset(df, SEASON == "Winter" & (YEAR == "2021" | YEAR == "2022" | YEAR == "2023"))
+f <- subset(df, SEASON == "Fall" & (YEAR == "2021" | YEAR == "2022" | YEAR == "2023"))
+s <- subset(df, SEASON == "Spring" & (YEAR == "2021" | YEAR == "2022" | YEAR == "2023"))
 
 w$DATE <- as.Date(w$DATE, format="%Y-%m-%d")
 s$DATE <- as.Date(s$DATE, format="%Y-%m-%d")
 f$DATE <- as.Date(f$DATE, format="%Y-%m-%d")
 
-for (year in 2021:2024) {
+for (year in 2021:2023) {
   f_year <- subset(f, f$YEAR == year)
   w_year <- subset(w, w$YEAR == year)
   s_year <- subset(s, s$YEAR == year)
@@ -65,20 +66,21 @@ for (year in 2021:2024) {
   assign(paste0("f_weekly_", year), f_weekly)
   rm(w_year,f_year,s_year,year,w_weekly,s_weekly,f_weekly)
 }
-colors <- c("#1f78b4", "#33a02c", "#e31a1c", "#ff7f00") 
+colors <- c("#1f78b4", "#33a02c", "#e31a1c") 
 ```
 
-<center><h2>Stats</h2>
+<center><h2>Stats</h2></center>
+<hr style="border: 0.5px solid black; width: 75%;">
 
 ```{r 1.1, include=TRUE,echo=FALSE, message=FALSE, warning=FALSE}
 corTable <- data.frame(
-  Year = 2021:2024,
-  Fall = numeric(length(2021:2024)),
-  Winter = numeric(length(2021:2024)),
-  Spring = numeric(length(2021:2024)) 
+  Year = 2021:2023,
+  Fall = numeric(length(2021:2023)),
+  Winter = numeric(length(2021:2023)),
+  Spring = numeric(length(2021:2023)) 
 )
 
-for (year in 2021:2024) {
+for (year in 2021:2023) {
   
   corTable[corTable$Year == year, "Fall"] <-  cor(get(paste0("f_", year))$TEMP_AVERAGE, get(paste0("f_", year))$SNOW_WC)
   corTable[corTable$Year == year, "Winter"] <- cor(get(paste0("w_", year))$TEMP_AVERAGE, get(paste0("w_", year))$SNOW_WC)
@@ -87,12 +89,22 @@ for (year in 2021:2024) {
 }
 
 knitr::kable(corTable, caption = "Correlation Matrix SNOW_WC ~ TEMP_AVERAGE")
-knitr::kable(TukeyHSD(aov(TEMP_AVERAGE ~ factor(YEAR), data = f))[["factor(YEAR)"]], caption = "TukeyHSD Fall (TEMP_AVERAGE ~ factor(YEAR))")
-knitr::kable(TukeyHSD(aov(TEMP_AVERAGE ~ factor(YEAR), data = w))[["factor(YEAR)"]], caption = "TukeyHSD Winter (TEMP_AVERAGE ~ factor(YEAR))")
-knitr::kable(TukeyHSD(aov(TEMP_AVERAGE ~ factor(YEAR), data = s))[["factor(YEAR)"]], caption = "TukeyHSD Spring (TEMP_AVERAGE ~ factor(YEAR))")
+
+#Fall (SNOW_WC ~ factor(YEAR))
+knitr::kable(as.data.frame(summary(aov(SNOW_WC ~ factor(YEAR), data = f))[[1]]), caption = "ANOVA Fall (SNOW_WC ~ factor(YEAR))")
+knitr::kable(TukeyHSD(aov(SNOW_WC ~ factor(YEAR), data = f))[["factor(YEAR)"]], caption = "TukeyHSD Fall (SNOW_WC ~ factor(YEAR))")
+
+#Winter (SNOW_WC ~ factor(YEAR))
+knitr::kable(as.data.frame(summary(aov(SNOW_WC ~ factor(YEAR), data = w))[[1]]), caption = "ANOVA Winter (SNOW_WC ~ factor(YEAR))")
+knitr::kable(TukeyHSD(aov(SNOW_WC ~ factor(YEAR), data = w))[["factor(YEAR)"]], caption = "TukeyHSD Winter (SNOW_WC ~ factor(YEAR))")
+
+#Spring (SNOW_WC ~ factor(YEAR))
+knitr::kable(as.data.frame(summary(aov(SNOW_WC ~ factor(YEAR), data = s))[[1]]), caption = "ANOVA Spring (SNOW_WC ~ factor(YEAR))")
+knitr::kable(TukeyHSD(aov(SNOW_WC ~ factor(YEAR), data = s))[["factor(YEAR)"]], caption = "TukeyHSD Spring (SNOW_WC ~ factor(YEAR))")
 ```
 
-<center><h2>Plots</h2>
+<center><h2>Plots</h2></center>
+<hr style="border: 0.5px solid black; width: 75%;">
 
 ```{r 1.2, include=TRUE,echo=FALSE, message=FALSE, warning=FALSE, fig.width=13}
 ################################# WINTER #######################################
@@ -101,41 +113,13 @@ par(mfrow = c(1,2))
 plot(w_2021$CYCLE_DATE, w_2021$SNOW_WC, type = "l", 
      xlab = "Date (Aligned)", ylab = "Snow Water Content (SNOW_WC)", 
      main = "Winter Snow Water Content 2021 - 2023", col = colors[1], lwd = 2,
-     ylim = c(min(w_2024$SNOW_WC), max(w_2023$SNOW_WC)))
+     ylim = c(min(w_2021$SNOW_WC), max(w_2023$SNOW_WC)))
 lines(w_2022$CYCLE_DATE, w_2022$SNOW_WC, col = colors[2], lwd = 2)
 lines(w_2023$CYCLE_DATE, w_2023$SNOW_WC, col = colors[3], lwd = 2)
-lines(w_2024$CYCLE_DATE, w_2024$SNOW_WC, col = colors[4], lwd = 2)
-legend("topleft", legend = c("2021", "2022", "2023", "2024"), 
+legend("topleft", legend = c("2021", "2022", "2023"), 
        col = colors, lwd = 2, bty = "n")
 
-#Time Series Overlay of Temperature
-plot(w_weekly_2021$CYCLE_WEEK, w_weekly_2021$TEMP_AVERAGE, type = "l", 
-     xlab = "Week", ylab = "Temperature Average (TEMP_AVERAGE)", 
-     main = "Average Weekly Temperature 2021 - 2024", 
-     col = colors[1], lwd = 2,
-     ylim = c(min(w_weekly_2023$TEMP_AVERAGE), max(w_weekly_2022$TEMP_AVERAGE)))
-lines(w_weekly_2022$CYCLE_WEEK, w_weekly_2022$TEMP_AVERAGE, col = colors[2], lwd = 2)
-lines(w_weekly_2023$CYCLE_WEEK, w_weekly_2023$TEMP_AVERAGE, col = colors[3], lwd = 2)
-lines(w_weekly_2024$CYCLE_WEEK, w_weekly_2024$TEMP_AVERAGE, col = colors[4], lwd = 2)
-legend("topleft", legend = c("2021", "2022", "2023", "2024"), 
-       col = colors, lwd = 2, bty = "n")
-
-# Temperature to Snow Water Content (scaled)
-for (year in 2021:2024) {
-  plot(get(paste0("w_weekly_", year))$CYCLE_WEEK, 
-       scale(get(paste0("w_weekly_", year))$TEMP_AVERAGE), type = "l", 
-       col = colors[1], lwd = 2, 
-       xlab = "Week", ylab = "Scaled Values", 
-       main = paste0("Average Weekly TEMP_AVERAGE and SNOW_WC:", year))
-  lines(get(paste0("w_weekly_", year))$CYCLE_WEEK, 
-        scale(get(paste0("w_weekly_", year))$SNOW_WC), col = colors[4],  
-        lty = 2, lwd = 2)
-  legend("topleft", legend = c("TEMP_AVERAGE", "SNOW_WC"), 
-         col = c(colors[1], colors[4]), lty = c(1, 2), lwd = 2, bty = "n", 
-         cex = 0.8)
-}
-rm(year)
-
+#bar plot
 aggregated_data <- aggregate(SNOW_WC ~ MONTH + YEAR, data = w, 
                              FUN = mean, na.rm = TRUE)
 reshaped_data <- reshape(aggregated_data, timevar = "YEAR", 
@@ -145,44 +129,78 @@ reshaped_data <- reshaped_data[, -1]
 data_matrix <- t(reshaped_data)
 barplot(as.matrix(data_matrix), beside = TRUE, col = 
           colors, 
-        legend.text = c("2021", "2022", "2023", "2024"), 
+        legend.text = c("2021", "2022", "2023"), 
         args.legend = list(title = "", x = "topleft"),
         main = "Grouped Bar Chart of SNOW_WC by Month and Cycle", 
         xlab = "Month", ylab = "Snow Water Content (SNOW_WC)", 
         names.arg = colnames(data_matrix))
 rm(aggregated_data, data_matrix, reshaped_data)
 
+# Temperature to Snow Water Content (scaled)
+for (year in 2021:2023) {
+  plot(get(paste0("w_weekly_", year))$CYCLE_WEEK, 
+       scale(get(paste0("w_weekly_", year))$TEMP_AVERAGE), type = "l", 
+       col = colors[1], lwd = 2, 
+       xlab = "Week", ylab = "Scaled Values", 
+       main = paste0("Average Weekly TEMP_AVERAGE and SNOW_WC:", year))
+  lines(get(paste0("w_weekly_", year))$CYCLE_WEEK, 
+        scale(get(paste0("w_weekly_", year))$SNOW_WC), col = colors[3],  
+        lty = 2, lwd = 2)
+  legend("topleft", legend = c("TEMP_AVERAGE", "SNOW_WC"), 
+         col = c(colors[1], colors[3]), lty = c(1, 2), lwd = 2, bty = "n", 
+         cex = 0.8)
+}
+rm(year)
+
+#Time Series Overlay of Temperature
+#plot(w_weekly_2021$CYCLE_WEEK, w_weekly_2021$TEMP_AVERAGE, type = "l", 
+#     xlab = "Week", ylab = "Temperature Average (TEMP_AVERAGE)", 
+#     main = "Average Weekly Temperature 2021 - 2024", 
+#     col = colors[1], lwd = 2,
+#     ylim = c(min(w_weekly_2023$TEMP_AVERAGE), max(w_weekly_2022$TEMP_AVERAGE)))
+#lines(w_weekly_2022$CYCLE_WEEK, w_weekly_2022$TEMP_AVERAGE, col = colors[2], lwd = 2)
+#lines(w_weekly_2023$CYCLE_WEEK, w_weekly_2023$TEMP_AVERAGE, col = colors[3], lwd = 2)
+#lines(w_weekly_2024$CYCLE_WEEK, w_weekly_2024$TEMP_AVERAGE, col = colors[4], lwd = 2)
+#legend("topleft", legend = c("2021", "2022", "2023", "2024"), 
+#       col = colors, lwd = 2, bty = "n")
+
 ################################ SPRING ########################################
 
-plot(s_weekly_2021$CYCLE_WEEK, s_weekly_2021$TEMP_AVERAGE, type = "l", 
-     xlab = "Week", ylab = "Weekly Temperature Averages (TEMP_AVERAGE)", 
-     main = "Spring Weekly Temperature Averages 2021 - 2024", 
-     col = colors[1], lwd = 2,
-     ylim = c(min(s_weekly_2023$TEMP_AVERAGE), max(s_weekly_2021$TEMP_AVERAGE)))
-lines(s_weekly_2022$CYCLE_WEEK, s_weekly_2022$TEMP_AVERAGE, col = colors[2], lwd = 2)
-lines(s_weekly_2023$CYCLE_WEEK, s_weekly_2023$TEMP_AVERAGE, col = colors[3], lwd = 2)
-lines(s_weekly_2024$CYCLE_WEEK, s_weekly_2024$TEMP_AVERAGE, col = colors[4], lwd = 2)
-legend("topleft", legend = c("2021", "2022", "2023", "2024"), 
-       col = colors, lwd = 2, bty = "n")
+#plot(s_weekly_2021$CYCLE_WEEK, s_weekly_2021$TEMP_AVERAGE, type = "l", 
+#     xlab = "Week", ylab = "Weekly Temperature Averages (TEMP_AVERAGE)", 
+#     main = "Spring Weekly Temperature Averages 2021 - 2024", 
+#     col = colors[1], lwd = 2,
+#     ylim = c(min(s_weekly_2023$TEMP_AVERAGE), max(s_weekly_2021$TEMP_AVERAGE)))
+#lines(s_weekly_2022$CYCLE_WEEK, s_weekly_2022$TEMP_AVERAGE, col = colors[2], lwd = 2)
+#lines(s_weekly_2023$CYCLE_WEEK, s_weekly_2023$TEMP_AVERAGE, col = colors[3], lwd = 2)
+#lines(s_weekly_2024$CYCLE_WEEK, s_weekly_2024$TEMP_AVERAGE, col = colors[4], lwd = 2)
+#legend("topleft", legend = c("2021", "2022", "2023", "2024"), 
+#       col = colors, lwd = 2, bty = "n")
 
 ################################# FALL #########################################
 
-plot(f_weekly_2021$CYCLE_WEEK, f_weekly_2021$TEMP_AVERAGE, type = "l", 
-     xlab = "Week", ylab = "Weekly Temperature Averages (TEMP_AVERAGE)", 
-     main = "Fall Weekly Temperature Averages 2021 - 2024", 
-     col = colors[1], lwd = 2,
-     ylim = c(min(f_weekly_2021$TEMP_AVERAGE), max(f_weekly_2022$TEMP_AVERAGE)))
-lines(f_weekly_2022$CYCLE_WEEK, f_weekly_2022$TEMP_AVERAGE, col = colors[2], lwd = 2)
-lines(f_weekly_2023$CYCLE_WEEK, f_weekly_2023$TEMP_AVERAGE, col = colors[3], lwd = 2)
-lines(f_weekly_2024$CYCLE_WEEK, f_weekly_2024$TEMP_AVERAGE, col = colors[4], lwd = 2)
-legend("bottomleft", legend = c("2021", "2022", "2023", "2024"), 
-       col = colors, lwd = 2, bty = "n")
+#plot(f_weekly_2021$CYCLE_WEEK, f_weekly_2021$TEMP_AVERAGE, type = "l", 
+#     xlab = "Week", ylab = "Weekly Temperature Averages (TEMP_AVERAGE)", 
+#     main = "Fall Weekly Temperature Averages 2021 - 2024", 
+#     col = colors[1], lwd = 2,
+#     ylim = c(min(f_weekly_2021$TEMP_AVERAGE), max(f_weekly_2022$TEMP_AVERAGE)))
+#lines(f_weekly_2022$CYCLE_WEEK, f_weekly_2022$TEMP_AVERAGE, col = colors[2], lwd = 2)
+#lines(f_weekly_2023$CYCLE_WEEK, f_weekly_2023$TEMP_AVERAGE, col = colors[3], lwd = 2)
+#lines(f_weekly_2024$CYCLE_WEEK, f_weekly_2024$TEMP_AVERAGE, col = colors[4], lwd = 2)
+#legend("bottomleft", legend = c("2021", "2022", "2023", "2024"), 
+#       col = colors, lwd = 2, bty = "n")
 ```
 
-<center><h1>Temperature Analysis</h1>
+<center><h2>Conclusion</h2></center>
+<hr style="border: 0.5px solid black; width: 75%;">
 
+<p>The results of our ANOVA and Tukey HSD tests indicate that snow water content (SNOW_WC) was significantly different across the years 2021, 2022, and 2023, with 2023 showing a much higher snowfall than the previous two years. The extremely small p-values (p < 2e-16) suggest that these differences are not random chance but rather a real and substantial change in snowfall patterns. The statistical significance of YEAR used as a predictor variable indicates that winter snowpack and temperatures play a critical role in shaping ecological conditions for the following spring bloom season, particularly through nighttime low temperatures that regulate seed germination and soil moisture from slow snowmelt. Given that spring bloomers are more sensitive to these factors, the sharp increase in snowpack and the colder temperatures in 2023 likely created conditions that influenced which species germinated and overall blooming cycles. In contrast, fall bloomers are better adapted to extreme conditions, including drought and high temperatures, meaning their germination remains more stable over multiple years despite fluctuations in winter precipitation and temperatures. These findings reinforce that winter conditions primarily influence spring bloom dynamics, while fall species tend to exhibit greater resilience to annual weather variation.</p>
 
-<center><h2>Seasonal</h2>
+<center><h1>Temperature Analysis</h1></center>
+<hr style="border: 2px solid black; width: 50%;">
+
+<center><h2>Seasonal</h2></center>
+<hr style="border: 0.5px solid black; width: 75%;">
 
 ```{r setup2, echo=FALSE, eval=TRUE, results='hide', message=FALSE, warning=FALSE}
 #install.packages('lubridate')
@@ -227,21 +245,40 @@ Fall2021_2023_week <- Fall_week[Fall_week$YEAR == "2021"|Fall_week$YEAR == "2022
 table(Fall2021_2023_week$YEAR)
 ```
 
-<center><h3>Stats</h3>
+<center><h3>Stats</h3></center>
+<hr style="border: 0.5px solid black; width: 75%;">
 
 ```{r 2.1, include=TRUE,echo=FALSE, message=FALSE, warning=FALSE}
 
-knitr::kable(TukeyHSD(aov(TEMP_AVERAGE ~ factor(YEAR), data = Spring))[["factor(YEAR)"]], caption = "tukey_result_ave_spring P= 0.0299, p<0.05 significant 2023 is different ")
+#result_ave_spring
+knitr::kable(as.data.frame(summary(aov(TEMP_AVERAGE ~ factor(YEAR), data = Spring))[[1]]), caption = "ANOVA Spring TEMP_AVERAGE ~ factor(YEAR))")
+knitr::kable(TukeyHSD(aov(TEMP_AVERAGE ~ factor(YEAR), data = Spring))[["factor(YEAR)"]], caption = "Tukey Spring (TEMP_AVERAGE ~ factor(YEAR))")
+knitr::asis_output("**P = 0.0299, p < 0.05 significant 2023 is different**")
 
-knitr::kable(TukeyHSD(aov(TEMP_MAX ~ factor(YEAR), data = Spring))[["factor(YEAR)"]], caption = "tukey_result_max_spring p = 0.0105, significant 2023 is different ")
+#result_max_spring
+knitr::kable(as.data.frame(summary(aov(TEMP_MAX ~ factor(YEAR), data = Spring))[[1]]), caption = "ANOVA Spring TEMP_MAX ~ factor(YEAR)")
+knitr::kable(TukeyHSD(aov(TEMP_MAX ~ factor(YEAR), data = Spring))[["factor(YEAR)"]], caption = "Tukey Spring (TEMP_MAX ~ factor(YEAR))")
+knitr::asis_output("**P = 0.0105, significant 2023 is different **")
 
-knitr::kable(TukeyHSD(aov(TEMP_MIN ~ factor(YEAR), data = Spring))[["factor(YEAR)"]], caption = "tukey_result_min_spring - p= 0.238, NOT significant All same/similar")
+#result_min_spring
+knitr::kable(as.data.frame(summary(aov(TEMP_MIN ~ factor(YEAR), data = Spring))[[1]]), caption = "ANOVA Spring TEMP_MIN ~ factor(YEAR)")
+knitr::kable(TukeyHSD(aov(TEMP_MIN ~ factor(YEAR), data = Spring))[["factor(YEAR)"]], caption = "Tukey Spring (TEMP_MIN ~ factor(YEAR))")
+knitr::asis_output("**P = 0.238, NOT significant All same/similar**")
 
-knitr::kable(tukey_result_fall <- TukeyHSD(aov(Fall$TEMP_AVERAGE ~ factor(YEAR), data = Fall))[["factor(YEAR)"]], caption = "tukey_result_fall - p< 0.05, p= 0.00418, significant, 2022 is different")
+#result_ave_fall
+knitr::kable(as.data.frame(summary(aov(TEMP_AVERAGE ~ factor(YEAR), data = Fall))[[1]]), caption = "ANOVA Fall TEMP_AVERAGE ~ factor(YEAR)")
+knitr::kable(TukeyHSD(aov(Fall$TEMP_AVERAGE ~ factor(YEAR), data = Fall))[["factor(YEAR)"]], caption = "Fall (TEMP_AVERAGE ~ factor(YEAR))")
+knitr::asis_output("**P < 0.05, P = 0.00418, significant, 2022 is different**")
 
-knitr::kable(TukeyHSD(aov(Fall$TEMP_MAX ~ factor(YEAR), data = Fall))[["factor(YEAR)"]], caption = "anova_fall_max - p=0.00314 significant 2022 is different")
+#result_max_fall
+knitr::kable(as.data.frame(summary(aov(TEMP_MAX ~ factor(YEAR), data = Fall))[[1]]), caption = "ANOVA Fall TEMP_MAX ~ factor(YEAR)")
+knitr::kable(TukeyHSD(aov(Fall$TEMP_MAX ~ factor(YEAR), data = Fall))[["factor(YEAR)"]], caption = "Tukey Fall (TEMP_MAX ~ factor(YEAR))")
+knitr::asis_output("**P = 0.00314 significant 2022 is different**")
 
-knitr::kable(TukeyHSD(aov(Fall$TEMP_MIN ~ factor(YEAR), data = Fall))[["factor(YEAR)"]], caption = "tukey_fall_min - p=0.00311 significant, 2022-2021 is different??")
+#result_min_fall
+knitr::kable(as.data.frame(summary(aov(TEMP_MIN ~ factor(YEAR), data = Fall))[[1]]), caption = "ANOVA Fall TEMP_MIN ~ factor(YEAR)")
+knitr::kable(TukeyHSD(aov(Fall$TEMP_MIN ~ factor(YEAR), data = Fall))[["factor(YEAR)"]], caption = "Tukey Fall (TEMP_MIN ~ factor(YEAR))")
+knitr::asis_output("**P = 0.00311 significant, 2022-2021 is different??**")
 
 
 ########### Conclusion: Fall 2022 and Spring 2023 were different ##########
@@ -271,7 +308,8 @@ knitr::kable(fall_mean_table, caption = "fall_mean_table - 2022 Fall was warmer 
 
 ```
 
-<center><h3>Plots</h3>
+<center><h3>Plots</h3></center>
+<hr style="border: 0.5px solid black; width: 75%;">
 
 ```{r 2.2, include=TRUE,echo=FALSE, message=FALSE, warning=FALSE, fig.width=13}
 par(mfrow = c(1,2))
@@ -319,27 +357,51 @@ matplot( Fall2021$DATE,  cbind(Fall2021$TEMP_MAX,
 legend(x='topleft', y=70, legend=c('FL21', 'FL22', 'FL23'), fill=c('red', 'blue', 'brown'))
 ```
 
-<center><h2>Week 1 Temperature Analysis</h2>
+<center><h2>Week 1 Temperature Analysis</h2></center>
+<hr style="border: 0.5px solid black; width: 75%;">
 
-<center><h3>Stats</h3>
+<center><h3>Stats</h3></center>
+<hr style="border: 0.5px solid black; width: 75%;">
 
 ```{r 2.3, include=TRUE,echo=FALSE, message=FALSE, warning=FALSE}
 
-knitr::kable(TukeyHSD(aov(TEMP_AVERAGE ~ factor(YEAR), data = Spring_week))[["factor(YEAR)"]], caption = "Spring_week_Average - P= 0.000484, p<0.05 significant, 2021 is different with 90% sig level ")
+#Spring Week 1 (TEMP_AVERAGE ~ factor(YEAR))
+knitr::kable(as.data.frame(summary(aov(TEMP_AVERAGE ~ factor(YEAR), data = Spring_week))[[1]]), caption = "ANOVA Spring week 1 - TEMP_AVERAGE ~ factor(YEAR)")
+knitr::kable(TukeyHSD(aov(TEMP_AVERAGE ~ factor(YEAR), data = Spring_week))[["factor(YEAR)"]], caption = "Tukey Spring week 1 - ANOVA(TEMP_AVERAGE ~ factor(YEAR))")
+knitr::asis_output("**P = 0.000484, P < 0.05 significant, 2021 is different with 90% sig level**")
 
-knitr::kable(TukeyHSD(aov(TEMP_MAX ~ factor(YEAR), data = Spring_week))[["factor(YEAR)"]], caption = "Spring_week_Max - p = 0.00217, significant, 2021 is different with 90% sig level")
+#Spring Week 1 (TEMP_MAX ~ factor(YEAR))
+knitr::kable(as.data.frame(summary(aov(TEMP_MAX ~ factor(YEAR), data = Spring_week))[[1]]), caption = "ANOVA Spring week 1 - TEMP_MAX ~ factor(YEAR)")
+knitr::kable(TukeyHSD(aov(TEMP_MAX ~ factor(YEAR), data = Spring_week))[["factor(YEAR)"]], caption = "Tukey Spring week 1 - ANOVA(TEMP_MAX ~ factor(YEAR))")
+knitr::asis_output("**P = 0.00217, significant, 2021 is different with 90% sig level**")
 
-knitr::kable(TukeyHSD(aov(TEMP_MIN ~ factor(YEAR), data = Spring_week))[["factor(YEAR)"]], caption = "Spring_week_Min - p= 0.0807, NOT significant, 2023-2021 is different")
+#Spring Week 1 (TEMP_MIN ~ factor(YEAR))
+knitr::kable(as.data.frame(summary(aov(TEMP_MIN ~ factor(YEAR), data = Spring_week))[[1]]), caption = "ANOVA Spring week 1 - TEMP_MIN ~ factor(YEAR)")
+knitr::kable(TukeyHSD(aov(TEMP_MIN ~ factor(YEAR), data = Spring_week))[["factor(YEAR)"]], caption = "Tukey Spring week 1 - ANOVA(TEMP_MIN ~ factor(YEAR))")
+knitr::asis_output("**P = 0.0807, NOT significant, 2023-2021 is different**")
 
-knitr::kable(TukeyHSD(aov(TEMP_AVERAGE ~ factor(YEAR), data = Fall_week))[["factor(YEAR)"]], caption = "Fall_week_Average - p< 0.05, p= 0.000479, significant, 2023 is different")
+#Fall Week 1 (TEMP_AVERAGE ~ factor(YEAR))
+knitr::kable(as.data.frame(summary(aov(TEMP_AVERAGE ~ factor(YEAR), data = Fall_week))[[1]]), caption = "ANOVA Fall week 1 TEMP_AVERAGE ~ factor(YEAR)")
+knitr::kable(TukeyHSD(aov(TEMP_AVERAGE ~ factor(YEAR), data = Fall_week))[["factor(YEAR)"]], caption = "Tukey Fall week 1 - ANOVA(TEMP_AVERAGE ~ factor(YEAR))")
+knitr::asis_output("**P < 0.05, P = 0.000479, significant, 2023 is different**")
 
-knitr::kable(TukeyHSD(aov(TEMP_MAX ~ factor(YEAR), data = Fall_week))[["factor(YEAR)"]], caption = "Fall_week_Max - p=0.000185 significant, 2023 is different")
 
-knitr::kable(TukeyHSD(aov(TEMP_MIN ~ factor(YEAR), data = Fall_week))[["factor(YEAR)"]], caption = "Fall_week_Min - p=0.177 NOT significant, All same ")
+#Fall Week 1 (TEMP_MAX ~ factor(YEAR))
+knitr::kable(as.data.frame(summary(aov(TEMP_MAX ~ factor(YEAR), data = Fall_week))[[1]]), caption = "ANOVA Fall week 1 TEMP_MAX ~ factor(YEAR)")
+knitr::kable(TukeyHSD(aov(TEMP_MAX ~ factor(YEAR), data = Fall_week))[["factor(YEAR)"]], caption = "Tukey Fall week 1 Max - ANOVA(TEMP_MAX ~ factor(YEAR))")
+knitr::asis_output("**P = 0.000185 significant, 2023 is different**")
+
+
+#Fall Week 1 (TEMP_MIN ~ factor(YEAR))
+knitr::kable(as.data.frame(summary(aov(TEMP_MIN ~ factor(YEAR), data = Fall_week))[[1]]), caption = "ANOVA Fall week 1 TEMP_MIN ~ factor(YEAR)")
+knitr::kable(TukeyHSD(aov(TEMP_MIN ~ factor(YEAR), data = Fall_week))[["factor(YEAR)"]], caption = "Tukey Fall week 1 Min - ANOVA(TEMP_MIN ~ factor(YEAR))")
+knitr::asis_output("**P = 0.177 NOT significant, All same**")
+
 
 ```
 
-<center><h3>Plots</h3>
+<center><h3>Plots</h3></center>
+<hr style="border: 0.5px solid black; width: 75%;">
 
 ```{r 2.4, include=TRUE,echo=FALSE, message=FALSE, warning=FALSE, fig.width=13}
 par(mfrow = c(1,2))
@@ -367,3 +429,8 @@ matplot( Fall2021_week$DATE,  cbind(Fall2021_week$TEMP_MIN,
                                       Fall2022_week$TEMP_MIN, Fall2023_week$TEMP_MIN),
          col = c("red", "blue", "brown"), type = "l", main = "Fall week 1 Min", xlab="", ylab="Min temp.")
 ```
+
+<center><h2>Conclusion</h2></center>
+<hr style="border: 0.5px solid black; width: 75%;">
+
+<p>Our temperature analysis reveals that Spring 2023 was significantly colder than previous years, with average and maximum temperatures showing a notable decline, particularly in Week 1. This suggests that spring species were impacted by colder temperatures and (in conjunction with the snow fall analysis) heavy snowfall, likely delaying growth. As spring bloomers are more sensitive to winter conditions, variation in nighttime low temperatures and soil moisture retention from slow snowmelt could explain the shifts in bloom timing and species. However, our analysis did not identify clear trends between temperature and total plant volume across years, suggesting that there may be an ecological threshold where additional moisture does not always lead to increased plant germination and growth. In contrast, fall temperatures fluctuated, with 2022 being significantly warmer than both 2021 and 2023, yet these variations did not disrupt fall bloom patterns. Since fall species are more adapted to germinating in harsh conditions—including high temperatures and low precipitation—their bloom cycles appear more consistent despite annual shifts in seasonal climate variables. These findings support the idea that spring bloomers experience more variability in response to weather patterns, whereas fall species exhibit greater resilience to changing environmental conditions.</p>
