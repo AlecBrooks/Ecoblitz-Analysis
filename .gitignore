@@ -1,52 +1,174 @@
-# History files
-.Rhistory
-.Rapp.history
+# ==============================
+# OS-Specific Files
+# ==============================
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon?
+._*
+.Spotlight-V100
+.Trashes
+.DS_Store?
+.fseventsd
 
-# Session Data files
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.lnk
+
+# ==============================
+# C++ (Build Artifacts)
+# ==============================
+*.exe
+*.dll
+*.obj
+*.o
+*.so
+*.a
+*.lib
+*.out
+*.elf
+*.d
+*.exp
+*.i
+*.s
+*.lst
+*.map
+*.res
+*.tds
+*.gch
+*.swp
+*.swo
+*.dep
+*.pch
+*.bin
+*.dSYM/
+*.ipch
+*.ilk
+*.pdb
+*.tlog
+*.log
+*.cache
+*.ncb
+*.sbr
+*.opendb
+
+# ==============================
+# Python
+# ==============================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.pyd
+*.whl
+venv/
+env/
+pip-log.txt
+pip-delete-this-directory.txt
+build/
+dist/
+*.egg-info/
+.eggs/
+*.manifest
+*.spec
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+
+# ==============================
+# R
+# ==============================
+.Rproj.user/
+.Rhistory
 .RData
+.Ruserdata
+.Rapp.history
+.Rprofile
+*.RData
+*.Rds
+*.rdb
+*.rds
+*.Rproj
+*.Rhistory
+.Rout
+.Rout.save
 .RDataTmp
 
-# User-specific files
-.Ruserdata
+# Packrat (R package manager)
+packrat/
+packrat.lock
 
-# Example code in package build process
-*-Ex.R
+# Renviron
+Renviron.site
+Renviron
 
-# Output files from R CMD build
-/*.tar.gz
-
-# Output files from R CMD check
-/*.Rcheck/
-
-# RStudio files
-.Rproj.user/
-
-# produced vignettes
-vignettes/*.html
-vignettes/*.pdf
-
-# OAuth2 token, see https://github.com/hadley/httr/releases/tag/v0.3
-.httr-oauth
-
-# knitr and R markdown default cache directories
-*_cache/
-/cache/
-
-# Temporary files created by R markdown
-*.utf8.md
-*.knit.md
-
-# R Environment Variables
-.Renviron
-
-# pkgdown site
-docs/
-
-# translation temp files
-po/*~
-
-# RStudio Connect folder
+# ShinyApps logs
 rsconnect/
+shinyapps/
 
-# macOS system files
-.DS_Store
+# ==============================
+# SQL
+# ==============================
+*.sql-journal
+*.sqlite-journal
+*.sqlite
+*.db
+
+# ==============================
+# Visual Studio (Including Subfolders)
+# ==============================
+.vs/
+.vscode/
+.idea/
+*.suo
+*.user
+*.userosscache
+*.sln
+*.dbmdl
+*.VC.db
+*.VC.VC.opendb
+*.opensdf
+*.sdf
+*.ilk
+*.ipch
+*.iobj
+*.obj
+*.pch
+*.pdb
+*.tlog
+*.log
+*.cache
+*.ncb
+*.sbr
+*.opendb
+*.rsuser
+*.sln.docstates
+*.csproj.user
+*.code-workspace
+.vsconfig
+
+# ==============================
+# Sublime Text Custom Folder
+# ==============================
+.sublime/
+
+# ==============================
+# Logs, Temporary, and Cache Files
+# ==============================
+*.log
+*.tmp
+*.bak
+*.swp
+*.swo
+*.swn
+*.lock
+*.~*
+*.crt
+*.pem
+*.key
+*.cfg
+*.ini
