@@ -152,11 +152,6 @@ shinyapps/
 .vsconfig
 
 # ==============================
-# Sublime Text Custom Folder
-# ==============================
-.sublime/
-
-# ==============================
 # Logs, Temporary, and Cache Files
 # ==============================
 *.log

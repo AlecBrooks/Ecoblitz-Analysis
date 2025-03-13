@@ -140,6 +140,18 @@
 		]
 	},
 	"menu_visible": true,
+	"output.LSP Log Panel":
+	{
+		"height": 0.0
+	},
+	"output.SublimeLinter":
+	{
+		"height": 0.0
+	},
+	"output.diagnostics":
+	{
+		"height": 0.0
+	},
 	"output.find_results":
 	{
 		"height": 0.0
@@ -189,6 +201,7 @@
 	"selected_group": 0,
 	"settings":
 	{
+		"lsp_show_inlay_hints": false
 	},
 	"show_minimap": true,
 	"show_open_files": true,
