@@ -1,4 +1,10 @@
 # ==============================
+# Project-Specific Files
+# ==============================
+
+#HERE
+
+# ==============================
 # OS-Specific Files
 # ==============================
 # macOS
@@ -150,6 +156,12 @@ shinyapps/
 *.csproj.user
 *.code-workspace
 .vsconfig
+
+# ==============================
+# sublime
+# ==============================
+.sublime/
+
 
 # ==============================
 # Logs, Temporary, and Cache Files

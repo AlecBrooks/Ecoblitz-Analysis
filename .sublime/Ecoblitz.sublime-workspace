@@ -7,6 +7,26 @@
 	},
 	"buffers":
 	[
+		{
+			"file": "/C/Users/AlecB/Repos/Ecoblitz-Analysis/.gitignore",
+			"settings":
+			{
+				"buffer_size": 1983,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			},
+			"undo_stack":
+			[
+				[
+					3,
+					1,
+					"paste",
+					null,
+					"AgAAAAAAAAAAAAAAvwcAAAAAAAAAAAAAvwcAAAAAAAC/BwAAAAAAAAQHAAAjID09PT09PT09PT09PT09PT09PT09PT09PT09PT09PQojIE9TLVNwZWNpZmljIEZpbGVzCiMgPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09CiMgbWFjT1MKLkRTX1N0b3JlCi5BcHBsZURvdWJsZQouTFNPdmVycmlkZQpJY29uPwouXyoKLlNwb3RsaWdodC1WMTAwCi5UcmFzaGVzCi5EU19TdG9yZT8KLmZzZXZlbnRzZAoKIyBXaW5kb3dzClRodW1icy5kYgplaHRodW1icy5kYgpEZXNrdG9wLmluaQokUkVDWUNMRS5CSU4vCioubG5rCgojID09PT09PT09PT09PT09PT09PT09PT09PT09PT09PQojIEMrKyAoQnVpbGQgQXJ0aWZhY3RzKQojID09PT09PT09PT09PT09PT09PT09PT09PT09PT09PQoqLmV4ZQoqLmRsbAoqLm9iagoqLm8KKi5zbwoqLmEKKi5saWIKKi5vdXQKKi5lbGYKKi5kCiouZXhwCiouaQoqLnMKKi5sc3QKKi5tYXAKKi5yZXMKKi50ZHMKKi5nY2gKKi5zd3AKKi5zd28KKi5kZXAKKi5wY2gKKi5iaW4KKi5kU1lNLwoqLmlwY2gKKi5pbGsKKi5wZGIKKi50bG9nCioubG9nCiouY2FjaGUKKi5uY2IKKi5zYnIKKi5vcGVuZGIKCiMgPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09CiMgUHl0aG9uCiMgPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09Cl9fcHljYWNoZV9fLwoqLnB5W2NvZF0KKiRweS5jbGFzcwoqLnNvCioucHlkCioud2hsCnZlbnYvCmVudi8KcGlwLWxvZy50eHQKcGlwLWRlbGV0ZS10aGlzLWRpcmVjdG9yeS50eHQKYnVpbGQvCmRpc3QvCiouZWdnLWluZm8vCi5lZ2dzLwoqLm1hbmlmZXN0Ciouc3BlYwoKIyBKdXB5dGVyIE5vdGVib29rCi5pcHluYl9jaGVja3BvaW50cy8KCiMgPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09CiMgUgojID09PT09PT09PT09PT09PT09PT09PT09PT09PT09PQouUnByb2oudXNlci8KLlJoaXN0b3J5Ci5SRGF0YQouUnVzZXJkYXRhCi5SYXBwLmhpc3RvcnkKLlJwcm9maWxlCiouUkRhdGEKKi5SZHMKKi5yZGIKKi5yZHMKKi5ScHJvagoqLlJoaXN0b3J5Ci5Sb3V0Ci5Sb3V0LnNhdmUKLlJEYXRhVG1wCgojIFBhY2tyYXQgKFIgcGFja2FnZSBtYW5hZ2VyKQpwYWNrcmF0LwpwYWNrcmF0LmxvY2sKCiMgUmVudmlyb24KUmVudmlyb24uc2l0ZQpSZW52aXJvbgoKIyBTaGlueUFwcHMgbG9ncwpyc2Nvbm5lY3QvCnNoaW55YXBwcy8KCiMgPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09CiMgU1FMCiMgPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09Ciouc3FsLWpvdXJuYWwKKi5zcWxpdGUtam91cm5hbAoqLnNxbGl0ZQoqLmRiCgojID09PT09PT09PT09PT09PT09PT09PT09PT09PT09PQojIFZpc3VhbCBTdHVkaW8gKEluY2x1ZGluZyBTdWJmb2xkZXJzKQojID09PT09PT09PT09PT09PT09PT09PT09PT09PT09PQoudnMvCi52c2NvZGUvCi5pZGVhLwoqLnN1bwoqLnVzZXIKKi51c2Vyb3NzY2FjaGUKKi5zbG4KKi5kYm1kbAoqLlZDLmRiCiouVkMuVkMub3BlbmRiCioub3BlbnNkZgoqLnNkZgoqLmlsawoqLmlwY2gKKi5pb2JqCioub2JqCioucGNoCioucGRiCioudGxvZwoqLmxvZwoqLmNhY2hlCioubmNiCiouc2JyCioub3BlbmRiCioucnN1c2VyCiouc2xuLmRvY3N0YXRlcwoqLmNzcHJvai51c2VyCiouY29kZS13b3Jrc3BhY2UKLnZzY29uZmlnCgojID09PT09PT09PT09PT09PT09PT09PT09PT09PT09PQojIExvZ3MsIFRlbXBvcmFyeSwgYW5kIENhY2hlIEZpbGVzCiMgPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09CioubG9nCioudG1wCiouYmFrCiouc3dwCiouc3dvCiouc3duCioubG9jawoqLn4qCiouY3J0CioucGVtCioua2V5CiouY2ZnCiouaW5pCg",
+					"AQAAAAAAAAABAAAAAAAAAAAAAAAEBwAAAAAAAAAAAAAAAPC/"
+				]
+			]
+		}
 	],
 	"build_system": "Packages/Python/Python.sublime-build",
 	"build_system_choices":
@@ -106,6 +126,37 @@
 		{
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "/C/Users/AlecB/Repos/Ecoblitz-Analysis/.gitignore",
+					"selected": true,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1983,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1983,
+								1983
+							]
+						],
+						"settings":
+						{
+							"lsp_uri": "file:///C:/Users/AlecB/Repos/Ecoblitz-Analysis/.gitignore",
+							"syntax": "Packages/Git Formats/Git Ignore.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"stack_multiselect": false,
+					"type": "text"
+				}
 			]
 		}
 	],
@@ -184,7 +235,7 @@
 		[
 			[
 				"",
-				"C:\\Users\\AlecB\\Repos\\UNLVcassAnalysis\\.sublime\\UNLVcassAnalysis.sublime-project"
+				"C:\\Users\\AlecB\\Repos\\alecbrooks.github.io\\.sublime\\MySite.sublime-project"
 			]
 		],
 		"width": 378.0
