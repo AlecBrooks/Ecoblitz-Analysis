@@ -1,13 +1,14 @@
 ---
-title: "Ecoblitz Weather & Flowering Phenology"
-author: "Eriko Sakamura, Alec Brooks, Seth Miller"
-date: "2025-02-23"
-output: pdf_document
-#output: html_document
+output: html_document
 ---
 
-<center><h1>Winter Snow Analysis</h1></center>
-<hr style="border: 2px solid black; width: 50%;">
+<div style="text-align:center">
+
+# Ecoblitz Weather & Flowering Phenology  
+**Alec Brooks, Seth Miller, Eriko Sakamura**  
+*April 16, 2025*
+
+</div>
 
 ```{r setup1, echo=FALSE, eval=TRUE, results='hide', message=FALSE, warning=FALSE}
 #install.packages("readr")
@@ -19,15 +20,16 @@ library(tidyr)
 library(here)
 
 setwd(here())
-df <- read_csv(here("Pre-Trip","DataSets", "WeatherData_20250222.csv"))
+df <- read_csv(here("Pre-Trip","DataSets", "WeatherData_20250416.csv"))
+#df <- read_csv(here("Pre-Trip","DataSets", "WeatherData_20250416.csv"))
 
 w <- subset(df, SEASON == "Winter" & (YEAR == "2021" | YEAR == "2022" | YEAR == "2023"))
 f <- subset(df, SEASON == "Fall" & (YEAR == "2021" | YEAR == "2022" | YEAR == "2023"))
 s <- subset(df, SEASON == "Spring" & (YEAR == "2021" | YEAR == "2022" | YEAR == "2023"))
 
-w$DATE <- as.Date(w$DATE, format="%Y-%m-%d")
-s$DATE <- as.Date(s$DATE, format="%Y-%m-%d")
-f$DATE <- as.Date(f$DATE, format="%Y-%m-%d")
+w$DATE <- as.Date(w$DATE, format="%m/%d/%Y")
+s$DATE <- as.Date(s$DATE, format="%m/%d/%Y")
+f$DATE <- as.Date(f$DATE, format="%m/%d/%Y")
 
 for (year in 2021:2023) {
   f_year <- subset(f, f$YEAR == year)
@@ -49,14 +51,14 @@ for (year in 2021:2023) {
   
   w_year$CYCLE_DATE <- as.Date(w_year$CYCLE_DATE, origin = "1970-01-01")
   
-  w_weekly <- aggregate(cbind(SNOW_WC, TEMP_AVERAGE) ~ WEEK, data = w_year, mean)
-  w_weekly$CYCLE_WEEK <- c(1:nrow(w_weekly))
-  
-  s_weekly <- aggregate(cbind(SNOW_WC, TEMP_AVERAGE) ~ WEEK, data = s_year, mean)
-  s_weekly$CYCLE_WEEK <- c(1:nrow(s_weekly))
-  
-  f_weekly <- aggregate(cbind(SNOW_WC, TEMP_AVERAGE) ~ WEEK, data = f_year, mean)
-  f_weekly$CYCLE_WEEK <- c(1:nrow(f_weekly))
+ w_weekly <- aggregate(cbind(SNOW_WC, TEMP_AVERAGE, RAIN_INCHES) ~ WEEK, data = w_year, mean)
+ w_weekly$CYCLE_WEEK <- c(1:nrow(w_weekly))
+
+ s_weekly <- aggregate(cbind(SNOW_WC, TEMP_AVERAGE, RAIN_INCHES) ~ WEEK, data = s_year, mean)
+ s_weekly$CYCLE_WEEK <- c(1:nrow(s_weekly))
+
+ f_weekly <- aggregate(cbind(SNOW_WC, TEMP_AVERAGE, RAIN_INCHES) ~ WEEK, data = f_year, mean)
+ f_weekly$CYCLE_WEEK <- c(1:nrow(f_weekly))
   
   assign(paste0("f_", year), f_year)
   assign(paste0("w_", year), w_year)
@@ -68,6 +70,79 @@ for (year in 2021:2023) {
 }
 colors <- c("#1f78b4", "#33a02c", "#e31a1c") 
 ```
+
+<center><h1>Precipitation Analysis</h1></center>
+<hr style="border: 2px solid black; width: 50%;">
+
+<center><h2>Stats</h2></center>
+<hr style="border: 0.5px solid black; width: 75%;">
+
+```{r rain.1, include=TRUE,echo=FALSE, message=FALSE, warning=FALSE}
+
+#Fall (RAIN_INCHES ~ factor(YEAR))
+knitr::kable(as.data.frame(summary(aov(RAIN_INCHES ~ factor(YEAR), data = f))[[1]]), caption = "ANOVA Fall (RAIN_INCHES ~ factor(YEAR))")
+knitr::kable(TukeyHSD(aov(RAIN_INCHES ~ factor(YEAR), data = f))[["factor(YEAR)"]], caption = "TukeyHSD Fall (RAIN_INCHES ~ factor(YEAR))")
+
+#Spring (RAIN_INCHES ~ factor(YEAR))
+knitr::kable(as.data.frame(summary(aov(RAIN_INCHES ~ factor(YEAR), data = s))[[1]]), caption = "ANOVA Spring (RAIN_INCHES ~ factor(YEAR))")
+knitr::kable(TukeyHSD(aov(RAIN_INCHES ~ factor(YEAR), data = s))[["factor(YEAR)"]], caption = "TukeyHSD Spring (RAIN_INCHES ~ factor(YEAR))")
+
+```
+
+<center><h2>Plots</h2></center>
+<hr style="border: 0.5px solid black; width: 75%;">
+
+```{r rain.2, include=TRUE,echo=FALSE, message=FALSE, warning=FALSE, fig.width=13}
+
+################################# WINTER #######################################
+par(mfrow = c(1,2))
+
+#Time Series Overlay of Spring Rain
+plot(s_2021$CYCLE_DATE, s_2021$RAIN_INCHES, type = "l", 
+     xlab = "Date (Aligned)", ylab = "Daily Aggregated Precipitation (RAIN_INCHES)", 
+     main = "Spring Precipitation Trends 2021 - 2023", col = colors[1], lwd = 2,
+     ylim = c(min(s_2021$RAIN_INCHES), max(s_2023$RAIN_INCHES)))
+lines(s_2022$CYCLE_DATE, s_2022$RAIN_INCHES, col = colors[2], lwd = 2)
+lines(s_2023$CYCLE_DATE, s_2023$RAIN_INCHES, col = colors[3], lwd = 2)
+legend("topleft", legend = c("2021", "2022", "2023"), 
+       col = colors, lwd = 2, bty = "n")
+
+#Time Series Overlay of Fall Rain
+plot(f_2021$CYCLE_DATE, f_2021$RAIN_INCHES, type = "l", 
+     xlab = "Date (Aligned)", ylab = "Daily Aggregated Precipitation (RAIN_INCHES)", 
+     main = "Fall Precipitation Trends 2021 - 2023", col = colors[1], lwd = 2,
+     ylim = c(min(f_2021$RAIN_INCHES), max(f_2023$RAIN_INCHES)))
+lines(f_2022$CYCLE_DATE, f_2022$RAIN_INCHES, col = colors[2], lwd = 2)
+lines(f_2023$CYCLE_DATE, f_2023$RAIN_INCHES, col = colors[3], lwd = 2)
+legend("topright", legend = c("2021", "2022", "2023"), 
+       col = colors, lwd = 2, bty = "n")
+
+#bar plot
+aggregated_data <- aggregate(RAIN_INCHES ~ MONTH + YEAR, data = w, 
+                             FUN = mean, na.rm = TRUE)
+reshaped_data <- reshape(aggregated_data, timevar = "YEAR", 
+                         idvar = "MONTH", direction = "wide")
+rownames(reshaped_data) <- reshaped_data$MONTH
+reshaped_data <- reshaped_data[, -1]
+data_matrix <- t(reshaped_data)
+barplot(as.matrix(data_matrix), beside = TRUE, col = 
+          colors, 
+        legend.text = c("2021", "2022", "2023"), 
+        args.legend = list(title = "", x = "topleft"),
+        main = "Grouped Bar Chart of RAIN_INCHES by Month and Cycle", 
+        xlab = "Month", ylab = "Snow Water Content (RAIN_INCHES)", 
+        names.arg = colnames(data_matrix))
+rm(aggregated_data, data_matrix, reshaped_data)
+
+```
+
+<center><h2>Conclusion</h2></center>
+<hr style="border: 0.5px solid black; width: 75%;">
+
+I dun know.
+
+<center><h1>Winter Snow Analysis</h1></center>
+<hr style="border: 2px solid black; width: 50%;">
 
 <center><h2>Stats</h2></center>
 <hr style="border: 0.5px solid black; width: 75%;">
