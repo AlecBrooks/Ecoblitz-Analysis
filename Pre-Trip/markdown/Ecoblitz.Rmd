@@ -93,8 +93,7 @@ knitr::kable(TukeyHSD(aov(RAIN_INCHES ~ factor(YEAR), data = s))[["factor(YEAR)"
 <hr style="border: 0.5px solid black; width: 75%;">
 
 ```{r rain.2, include=TRUE,echo=FALSE, message=FALSE, warning=FALSE, fig.width=13}
-
-################################# WINTER #######################################
+library(lubridate)
 par(mfrow = c(1,2))
 
 #Time Series Overlay of Spring Rain
@@ -133,6 +132,47 @@ barplot(as.matrix(data_matrix), beside = TRUE, col =
         xlab = "Month", ylab = "Snow Water Content (RAIN_INCHES)", 
         names.arg = colnames(data_matrix))
 rm(aggregated_data, data_matrix, reshaped_data)
+
+
+# helper to build a weekly‐aggregated df
+weekly_agg <- function(df) {
+  df$week_start <- floor_date(df$CYCLE_DATE, unit = "week", week_start = 1) 
+  aggregate(RAIN_INCHES ~ week_start, data = df, FUN = mean, na.rm = TRUE)
+}
+
+# compute weekly means for spring and fall, for each year
+w_s21 <- weekly_agg(s_2021)
+w_s22 <- weekly_agg(s_2022)
+w_s23 <- weekly_agg(s_2023)
+
+w_f21 <- weekly_agg(f_2021)
+w_f22 <- weekly_agg(f_2022)
+w_f23 <- weekly_agg(f_2023)
+
+# two‐panel layout
+par(mfrow = c(1,2))
+
+# --- Spring Weekly Averages Overlay ---
+plot(w_s21$week_start, w_s21$RAIN_INCHES, type = "l",
+     xlab = "Week Starting", ylab = "Avg Weekly Precipitation (in)",
+     main = "Spring Weekly precipitation Averages 2021–2023",
+     col = colors[1], lwd = 2,
+     ylim = range(c(w_s21$RAIN_INCHES, w_s22$RAIN_INCHES, w_s23$RAIN_INCHES)))
+lines(w_s22$week_start, w_s22$RAIN_INCHES, col = colors[2], lwd = 2)
+lines(w_s23$week_start, w_s23$RAIN_INCHES, col = colors[3], lwd = 2)
+legend("topleft", legend = c("2021","2022","2023"),
+       col = colors, lwd = 2, bty = "n")
+
+# --- Fall Weekly Averages Overlay ---
+plot(w_f21$week_start, w_f21$RAIN_INCHES, type = "l",
+     xlab = "Week Starting", ylab = "Avg Weekly Precipitation (in)",
+     main = "Fall Weekly precipitation Averages 2021–2023",
+     col = colors[1], lwd = 2,
+     ylim = range(c(w_f21$RAIN_INCHES, w_f22$RAIN_INCHES, w_f23$RAIN_INCHES)))
+lines(w_f22$week_start, w_f22$RAIN_INCHES, col = colors[2], lwd = 2)
+lines(w_f23$week_start, w_f23$RAIN_INCHES, col = colors[3], lwd = 2)
+legend("topright", legend = c("2021","2022","2023"),
+       col = colors, lwd = 2, bty = "n")
 
 ```
 
